@@ -1,61 +1,29 @@
-# 智学多模态 Agent · 工程骨架
+# 智学多模态 Agent
 
-申报书对应技术栈：**FastAPI（后端）** + **Vue（Web）** + **UniApp（小程序）**；异步任务与对象存储通过 Docker 编排拉起。
+仓库：[zhixue-multimodal](https://github.com/TinjiYDon/zhixue-multimodal)
 
-## 目录结构
+## 文档
 
-```
-code/
-├── backend/          # FastAPI：API、领域服务、异步任务入口（占位）
-├── web/              # Vue 3 + Vite：师生 Web 端
-├── miniapp/          # 小程序：见 README，建议用官方脚手架初始化
-├── docker-compose.yml
-└── README.md
-```
+**从 [`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md) 开始 · 分工见 [`docs/OWNER_VS_TEAM.md`](docs/OWNER_VS_TEAM.md)**
 
-## 本地启动
+## 快速启动
 
-### 1. 依赖服务（可选）
-
-```bash
-cd code
+```powershell
 docker compose up -d
+cd backend && uvicorn app.main:app --reload --port 8000
+cd web && npm install && npm run dev
 ```
 
-### 2. 后端
+## 目录
 
-```bash
-cd backend
-python -m venv .venv
-.\.venv\Scripts\activate   # Windows
-pip install -r requirements.txt
-copy .env.example .env
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+backend/     # FastAPI（负责人：API + Agent/RAG）
+web/         # Vue 3（队友 A）
+miniapp/     # UniApp（队友 B）
+docker-compose.yml
+docs/
 ```
 
-OpenAPI：`http://localhost:8000/docs`
+## 技术栈
 
-若 `pip install` **超时**，可临时换镜像（示例）：`pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`。若遇 **ResolutionImpossible**，请先升级 pip：`python -m pip install -U pip`，仍失败请将完整报错贴出。
-
-### 3. Web
-
-```bash
-cd web
-npm install
-npm run dev
-```
-
-默认代理 `/api` → `http://localhost:8000`（见 `web/vite.config.ts`）。
-
-### 4. 小程序
-
-见 `miniapp/README.md`。
-
-## 后续接入点（与申报书模块对应）
-
-| 模块 | 建议落位 |
-|------|----------|
-| ASR（WhisperX 等） | `backend/app/services/transcription.py` + worker |
-| 多模态对齐 | `backend/app/services/alignment.py` |
-| Agent / LLM | `backend/app/services/agent.py` |
-| 权限师生双端 | `backend/app/api/deps.py` + JWT/OAuth2 扩展 |
+FastAPI · Vue 3 · UniApp · PostgreSQL · Redis · MinIO · WhisperX/RAG（规划）

@@ -1,25 +1,29 @@
-# 本地开发依赖：PostgreSQL / Redis / MinIO（可选）
-# 用法：在 code 目录执行 docker compose up -d
+# 本地开发依赖：PostgreSQL / Redis / MinIO
+# 用法：在本目录执行 docker compose up -d
+# 默认 PG 5435，与 ICU 项目及本机 PG16(5432) 错开
 
 services:
   postgres:
     image: postgres:16-alpine
+    container_name: zhixue_postgres
     environment:
       POSTGRES_USER: zhixue
       POSTGRES_PASSWORD: zhixue_dev
       POSTGRES_DB: zhixue
     ports:
-      - "5432:5432"
+      - "${ZHIXUE_PG_PORT:-5435}:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - zhixue_pg_data:/var/lib/postgresql/data
 
   redis:
     image: redis:7-alpine
+    container_name: zhixue_redis
     ports:
-      - "6379:6379"
+      - "${ZHIXUE_REDIS_PORT:-6379}:6379"
 
   minio:
     image: minio/minio:latest
+    container_name: zhixue_minio
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: minio
@@ -28,8 +32,8 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - minio_data:/data
+      - zhixue_minio_data:/data
 
 volumes:
-  pg_data:
-  minio_data:
+  zhixue_pg_data:
+  zhixue_minio_data:
