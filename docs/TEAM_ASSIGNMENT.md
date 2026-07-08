@@ -1,7 +1,14 @@
-# 分工说明（来源：`_local-data/team-docs/分工/`）
+# 分工说明
 
-> **负责人（你）**：后端 API 整合、模型/Agent/RAG 链路、对齐算法接口  
-> **队友模块**：仅保留**框架 + 空实现 + 本文档**，由队友在各自分支实现
+> **5 人协作**：详见 [`COLLABORATION.md`](COLLABORATION.md) · 任务 [`BACKLOG.md`](BACKLOG.md) · 规范 [`CONTRIBUTING.md`](../CONTRIBUTING.md)
+
+| 成员 | 角色 | 目录 |
+|------|------|------|
+| **负责人** | 后端 API + Agent/RAG + **集成** | `backend/app/api/` `services/agent.py` `alignment.py` |
+| **A** | Web Vue | `web/` |
+| **B** | 小程序 | `miniapp/` |
+| **C** | 多媒体 ASR/OCR | `backend/app/services/multimedia/` |
+| **D** | Docker + Worker | `docker-compose.yml` `backend/app/workers/` |
 
 ## 模块归属
 

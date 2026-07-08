@@ -1,6 +1,8 @@
 # 智学多模态 Agent
 
-仓库：[zhixue-multimodal](https://github.com/TinjiYDon/zhixue-multimodal)
+5 人协作 · 仓库 [zhixue-multimodal](https://github.com/TinjiYDon/zhixue-multimodal)
+
+**协作入口**：[`docs/COLLABORATION.md`](docs/COLLABORATION.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## 文档
 

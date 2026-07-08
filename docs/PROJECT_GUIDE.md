@@ -23,10 +23,11 @@ cd web && npm run dev
 
 | 文档 | 内容 |
 |------|------|
-| [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | **你 vs 队友具体交付** |
+| [COLLABORATION.md](COLLABORATION.md) | **5 人协作主手册** |
+| [BACKLOG.md](BACKLOG.md) | 垂直切片任务 |
+| [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 具体交付 |
 | [TODO_OWNER.md](TODO_OWNER.md) | 负责人待办 |
-| [INNOVATION_ROADMAP.md](INNOVATION_ROADMAP.md) | 创新路线 |
-| [modules/](modules/) | 各模块说明 |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | PR 规范 |
 
 ## 注意事项
 
