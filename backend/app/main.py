@@ -5,11 +5,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
 from app.core.config import settings
+from app.services import storage
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    # TODO: init DB pool, Redis, etc.
+    try:
+        storage.ensure_media_bucket()
+    except Exception:
+        # MinIO may be offline during pure API dev; upload endpoints will 503.
+        pass
     yield
     # TODO: graceful shutdown
 

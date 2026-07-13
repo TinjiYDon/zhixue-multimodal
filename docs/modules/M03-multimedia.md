@@ -13,7 +13,14 @@
 ## 依赖
 
 - FFmpeg 系统安装
-- MinIO 对象路径由负责人 upload API 提供
+- MinIO 对象路径由负责人 upload API 提供（`POST /api/v1/upload/presign`）
+
+## 输出契约
+
+实现结果须符合 `backend/app/schemas/transcript.py`：
+
+- `TranscriptResult` / `TranscriptSegment` — ASR
+- `OcrResult` / `OcrPageResult` — OCR
 
 ## 验收
 

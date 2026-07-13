@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     debug: bool = False
     api_v1_prefix: str = "/api/v1"
 
-    database_url: str = "postgresql+asyncpg://zhixue:zhixue_dev@localhost:5432/zhixue"
+    database_url: str = "postgresql+asyncpg://zhixue:zhixue_dev@localhost:5435/zhixue"
     redis_url: str = "redis://localhost:6379/0"
 
     s3_endpoint: str = "http://localhost:9000"

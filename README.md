@@ -6,7 +6,7 @@
 
 ## 文档
 
-**从 [`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md) 开始 · 分工见 [`docs/OWNER_VS_TEAM.md`](docs/OWNER_VS_TEAM.md)**
+**从 [`docs/TEAM_ASSIGNMENT.md`](docs/TEAM_ASSIGNMENT.md) 开始 · 分工见 [`docs/OWNER_VS_TEAM.md`](docs/OWNER_VS_TEAM.md)**
 
 ## 快速启动
 
@@ -15,6 +15,8 @@ docker compose up -d
 cd backend && uvicorn app.main:app --reload --port 8000
 cd web && npm install && npm run dev
 ```
+
+OpenAPI：`http://localhost:8000/docs`（含 upload / ask，详见 [`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md)）
 
 ## 目录
 
