@@ -12,6 +12,7 @@ class UploadPresignResponse(BaseModel):
     upload_url: str
     bucket: str
     expires_in: int = 3600
+    content_type: str = "application/octet-stream"
 
 
 class UploadCompleteRequest(BaseModel):

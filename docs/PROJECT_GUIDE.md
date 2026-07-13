@@ -30,11 +30,20 @@ cd web && npm run dev
 | GET | `/api/v1/health` | ✅ | — |
 | GET/POST | `/api/v1/courses` | ✅ 内存占位 | D → PG |
 | POST | `/api/v1/upload/presign` | ✅ | 负责人 |
-| POST | `/api/v1/upload/complete` | ✅ | 负责人 |
+| POST | `/api/v1/upload/complete` | ✅ MinIO 对象校验 | 负责人 |
 | POST | `/api/v1/courses/{id}/ask` | ✅ RAG 占位 | 负责人 |
 | POST/GET | `/api/v1/jobs` | ⏳ | D |
 
 转写/OCR 输出契约：`backend/app/schemas/transcript.py`
+
+## 负责人阶段验证
+
+```powershell
+cd backend
+.\.venv\Scripts\pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pytest tests/ -q
+.\.venv\Scripts\uvicorn app.main:app --reload --port 8000
+```
 
 ## 文档索引
 

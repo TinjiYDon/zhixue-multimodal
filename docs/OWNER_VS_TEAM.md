@@ -8,11 +8,11 @@
 
 | # | 交付物 | 路径 | 状态 |
 |---|--------|------|------|
-| 1 | 上传 API | `endpoints/upload.py` + `services/storage.py` | ✅ presign + complete |
+| 1 | 上传 API | `endpoints/upload.py` + `services/storage.py` | ✅ presign + complete + MinIO 校验 |
 | 2 | 转写/OCR schema | `schemas/transcript.py` | ✅ 供 C 对齐 |
 | 3 | 对齐服务 | `services/alignment.py` | ✅ 工具函数 + 占位 |
-| 4 | RAG + Agent | `services/agent.py` + `endpoints/ask.py` | ✅ 占位，待 pgvector |
-| 5 | 路由挂载 | `router.py` | ✅ upload + ask |
+| 4 | RAG + Agent | `services/agent.py` + `courses/{id}/ask` | ✅ 占位 + CJK |
+| 5 | 路由 + 测试 | `router.py` · `backend/tests/` | ✅ 6 pytest passed |
 | 6 | OpenAPI 契约审批 | `/docs` | 进行中 |
 | 7 | 联调编排 | upload → D job → alignment → RAG | ⏳ 等 D/C |
 

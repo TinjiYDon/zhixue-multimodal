@@ -85,16 +85,18 @@ gh issue create --repo TinjiYDon/zhixue-multimodal `
 
 ---
 
-## Epic 与主责对照
+## Epic 与主责对照（已创建）
 
-| Issue | 标题建议 | 主责 | GitHub（待你确认 A/B/C） |
-|-------|----------|------|--------------------------|
-| P0-2 | 上传 API + 联调 Job | 负责人 | `TinjiYDon` |
-| P0-3 | FFmpeg + WhisperX + OCR | C · 多媒体 | `whq6830-arch` |
-| P0-4 | Job/Course API + Worker | D · 后端接口 | `yucc280` |
-| P0-5 | alignment + RAG + /ask | 负责人 | `TinjiYDon` |
-| P0-6 | Web 时间轴 + 问答 UI | A · 前端 | `RynnYuan` |
-| P0-7 | UniApp 小程序 | B · 小程序 | `oceancat91` |
+| Issue | 标题 | 主责 | GitHub |
+|-------|------|------|--------|
+| [#2](https://github.com/TinjiYDon/zhixue-multimodal/issues/2) | P0-2 upload | 负责人 | `TinjiYDon` |
+| [#4](https://github.com/TinjiYDon/zhixue-multimodal/issues/4) | P0-3 多媒体 | C | `whq6830-arch` |
+| [#5](https://github.com/TinjiYDon/zhixue-multimodal/issues/5) | P0-4 Job API | D | `yucc280` |
+| [#6](https://github.com/TinjiYDon/zhixue-multimodal/issues/6) | P0-5 RAG/ask | 负责人 | `TinjiYDon` |
+| [#7](https://github.com/TinjiYDon/zhixue-multimodal/issues/7) | P0-6 Web | A | `RynnYuan` |
+| [#8](https://github.com/TinjiYDon/zhixue-multimodal/issues/8) | P0-7 小程序 | B | `oceancat91` |
+
+负责人阶段加固（2026-07-13）：#2 #6 见 Issue 评论 · `pytest tests/` 6 passed
 
 **说明：** P0-2 里 `#P0-2b` Course PG 是 **D** 的子任务，写在 P0-2 或 P0-4 Issue 的 checklist 里，**不要**再开独立 Epic，避免 D 和负责人抢同一个 Issue。
 

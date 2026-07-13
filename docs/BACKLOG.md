@@ -22,7 +22,8 @@
 
 ## P0-2 · 上传与课程
 
-- [x] **#P0-2** `endpoints/upload.py` MinIO 预签名 + complete（**负责人** ✅）
+- [x] **#P0-2** `endpoints/upload.py` MinIO 预签名 + complete + **对象校验**（**负责人** ✅）
+- [x] **#P0-2d** `backend/tests/test_upload.py` smoke（**负责人** ✅）
 - [ ] **#P0-2a** upload complete 后自动触发 job（等 D 的 `/jobs` 联调）
 - [ ] **#P0-2b** `course_service.py` PostgreSQL CRUD（**D**）
 - [x] **#P0-2c** `router.py` 注册 upload/ask（**负责人** ✅；jobs 等 D PR review）
@@ -49,7 +50,8 @@
 ## P0-5 · 智能链路（负责人）
 
 - [x] **#P0-5** `alignment.py` 页级对齐工具函数 + 占位 API（**负责人** ✅ 骨架）
-- [x] **#P0-5b** `agent.py` + `POST /courses/{id}/ask` RAG 占位（**负责人** ✅ 骨架）
+- [x] **#P0-5b** `agent.py` + `POST /courses/{id}/ask` RAG 占位 + CJK（**负责人** ✅）
+- [x] **#P0-5d** `backend/tests/test_ask.py` smoke（**负责人** ✅）
 - [ ] **#P0-5b+** pgvector 正式 RAG + LLM（等 C/D 转写入库）
 - [ ] **#P0-5c** 全链路 demo 文档
 

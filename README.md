@@ -18,6 +18,10 @@ cd web && npm install && npm run dev
 
 OpenAPI：`http://localhost:8000/docs`（含 upload / ask，详见 [`docs/PROJECT_GUIDE.md`](docs/PROJECT_GUIDE.md)）
 
+```powershell
+cd backend && .\.venv\Scripts\python.exe -m pytest tests/ -q   # 负责人 API smoke
+```
+
 ## 目录
 
 ```

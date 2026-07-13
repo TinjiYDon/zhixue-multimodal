@@ -4,11 +4,12 @@
 
 | 任务 | 文件 | 状态 |
 |------|------|------|
-| 上传 API | `endpoints/upload.py` + `services/storage.py` | ✅ presign + complete |
+| 上传 API | `endpoints/upload.py` + `services/storage.py` | ✅ presign + complete + MinIO 校验 |
 | 转写 schema | `schemas/transcript.py` | ✅ 供 C 对齐 |
-| 问答 API | `endpoints/ask.py` + `services/agent.py` | ✅ RAG 占位 |
+| 问答 API | `endpoints/courses.py` `/ask` + `services/agent.py` | ✅ RAG 占位 + CJK |
 | 对齐服务 | `services/alignment.py` | ✅ 工具函数 + 占位 |
-| API 路由注册 | `router.py` | ✅ upload + ask |
+| API 路由注册 | `router.py` | ✅ upload + courses/ask |
+| API 测试 | `backend/tests/` | ✅ upload + ask smoke |
 | RAG 正式版 | `agent.py` pgvector | ⏳ 等 C/D 转写入库 |
 | review D PR | jobs/courses | ⏳ 待 D 提交 |
 

@@ -8,6 +8,7 @@ from functools import lru_cache
 from urllib.parse import urlparse
 
 from minio import Minio
+from minio.error import S3Error
 
 from app.core.config import settings
 
@@ -36,11 +37,27 @@ def build_media_key(course_id: str, filename: str) -> str:
     return f"courses/{course_id}/{uuid.uuid4().hex}.{suffix}"
 
 
-def presign_put_object(media_key: str, expires_seconds: int = 3600) -> str:
+def presign_put_object(
+    media_key: str,
+    expires_seconds: int = 3600,
+    content_type: str = "application/octet-stream",
+) -> str:
     ensure_media_bucket()
     client = get_minio_client()
+    # Client must send the same Content-Type on PUT as echoed in presign response.
     return client.presigned_put_object(
         settings.s3_bucket,
         media_key,
         expires=timedelta(seconds=expires_seconds),
     )
+
+
+def object_exists(media_key: str) -> bool:
+    client = get_minio_client()
+    try:
+        client.stat_object(settings.s3_bucket, media_key)
+        return True
+    except S3Error:
+        return False
+    except Exception:
+        return False
