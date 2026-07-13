@@ -96,7 +96,7 @@ gh issue create --repo TinjiYDon/zhixue-multimodal `
 | [#7](https://github.com/TinjiYDon/zhixue-multimodal/issues/7) | P0-6 Web | A | `RynnYuan` |
 | [#8](https://github.com/TinjiYDon/zhixue-multimodal/issues/8) | P0-7 小程序 | B | `oceancat91` |
 
-负责人阶段加固（2026-07-13）：#2 #6 见 Issue 评论 · `pytest tests/` 6 passed
+负责人阶段加固（2026-07-13）：#2 #6 见 Issue 评论 · commit `7b966af` · `pytest tests/` 6 passed
 
 **说明：** P0-2 里 `#P0-2b` Course PG 是 **D** 的子任务，写在 P0-2 或 P0-4 Issue 的 checklist 里，**不要**再开独立 Epic，避免 D 和负责人抢同一个 Issue。
 
