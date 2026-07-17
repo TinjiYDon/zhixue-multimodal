@@ -2,20 +2,22 @@
 
 ## P0（你完成）
 
-| 任务 | 文件 | 说明 |
+| 任务 | 文件 | 状态 |
 |------|------|------|
-| 上传 API | `backend/app/api/v1/endpoints/upload.py` | 新建，MinIO 预签名 |
-| 对齐服务 | `backend/app/services/alignment.py` | 转写 ↔ PPT 页级对齐 |
-| RAG/Agent | `backend/app/services/agent.py` | pgvector + LLM 问答 |
-| 课程域扩展 | `backend/app/services/course_service.py` | 持久化 PG，替代内存 |
-| API 路由注册 | `backend/app/api/v1/router.py` | 挂载新 endpoints |
+| 上传 API | `endpoints/upload.py` + `services/storage.py` | ✅ presign + complete + MinIO 校验 |
+| 转写 schema | `schemas/transcript.py` | ✅ 供 C 对齐 |
+| 问答 API | `endpoints/courses.py` `/ask` + `services/agent.py` | ✅ RAG 占位 + CJK |
+| 对齐服务 | `services/alignment.py` | ✅ 工具函数 + 占位 |
+| API 路由注册 | `router.py` | ✅ upload + courses/ask |
+| API 测试 | `backend/tests/` | ✅ upload + ask smoke |
+| RAG 正式版 | `agent.py` pgvector | ⏳ 等 C/D 转写入库 |
+| review D PR | jobs/courses | ⏳ 待 D 提交 |
 
-## 队友模块（仅验收）
+## 队友 D（业务 API，不再做 Docker 运维）
 
-- `web/` — 时间轴 UI  
-- `miniapp/` — 小程序  
-- `backend/app/services/multimedia/` — ASR/OCR/FFmpeg  
-- `backend/app/workers/` — 异步任务  
+- `course_service.py` PostgreSQL 持久化  
+- `endpoints/jobs.py` + `job_service.py`  
+- `workers/tasks.py` 异步调度（调用 C 转写）  
 
 ## 联调顺序
 

@@ -4,19 +4,18 @@
 
 | 成员 | 角色 | 目录 | 模块 |
 |------|------|------|------|
-| **负责人** | 后端集成 + Agent/RAG + API 契约 | `backend/app/api/` `services/agent.py` `alignment.py` `course_service.py` | M5/M6 |
+| **负责人** | 上传 + alignment + RAG + OpenAPI 审批 | `upload.py` `agent.py` `alignment.py` | M5 |
 | **A** | Web 前端 | `web/` | M1 |
 | **B** | 小程序 | `miniapp/` | M2 |
-| **C** | 多媒体 | `backend/app/services/multimedia/` | M3 |
-| **D** | 数据/异步 | `docker-compose.yml` `backend/app/workers/` | M4 |
+| **C** | 多媒体 WhisperX/OCR | `backend/app/services/multimedia/` | M3 |
+| **D** | Job/Course API + Worker + PG | `jobs.py` `job_service.py` `course_service.py` `workers/` | M6 |
 
-完整手册：[`docs/COLLABORATION.md`](docs/COLLABORATION.md)  
-分工交付：[`docs/OWNER_VS_TEAM.md`](docs/OWNER_VS_TEAM.md)
+**全员先读：** [`docs/TEAM_ASSIGNMENT.md`](docs/TEAM_ASSIGNMENT.md)
 
 ## 边界规则
 
 1. **API 契约优先**：后端 OpenAPI（`/docs`）为前后端/小程序/Worker 唯一对接标准
-2. **负责人**定义/变更 API；A/B/C/D **只消费**或实现约定 schema 的输入输出
+2. **负责人**定义/审批 API；A/B 消费 REST；C 产出 JSON schema；D 实现 jobs/courses
 3. **禁止**队友修改 `agent.py` / `alignment.py` 核心逻辑（需求开 issue @负责人）
 4. 各模块只改各自 `OWNER.md` / `TEAM_OWNER.md` 标注目录
 
@@ -33,7 +32,7 @@
 
 - [PR 模板](.github/pull_request_template.md)
 - 任务：[`docs/BACKLOG.md`](docs/BACKLOG.md)
-- 标签：`api` `web` `miniapp` `multimedia` `worker` `infra` `bug` `blocked`
+- 标签：`api` `web` `miniapp` `multimedia` `jobs` `worker` `bug` `blocked`
 
 ## 集成负责人
 

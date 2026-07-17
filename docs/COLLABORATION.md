@@ -1,5 +1,7 @@
 # 五人协作手册 · zhixue-multimodal
 
+> **分工总表（全员先读）：** [`TEAM_ASSIGNMENT.md`](TEAM_ASSIGNMENT.md)
+
 ## 1. 角色总览
 
 ```
@@ -13,11 +15,11 @@ web (A) ──────┼──► FastAPI + Agent (负责人) ──► PG 
 
 | 成员 | 读文档 | 交付核心 |
 |------|--------|----------|
-| **负责人** | TODO_OWNER.md | upload API、course PG、alignment、RAG、路由 |
+| **负责人** | TODO_OWNER.md | upload API、alignment、RAG、OpenAPI 审批 |
 | **A** | M01 · web/TEAM_OWNER.md | 时间轴 + PPT + `/ask` |
 | **B** | M02 · miniapp/TEAM_OWNER.md | 课程列表 + 问答入口 |
-| **C** | M03 | FFmpeg + ASR + OCR JSON |
-| **D** | M04 | docker compose + 异步任务队列 |
+| **C** | M03 | FFmpeg + WhisperX + OCR JSON |
+| **D** | M6 · [M05-backend-jobs-api.md](modules/M05-backend-jobs-api.md) | Job/Course API + PG + Worker |
 
 ## 2. 集成负责人（负责人）职责
 
@@ -29,10 +31,10 @@ web (A) ──────┼──► FastAPI + Agent (负责人) ──► PG 
 
 | 阶段 | 切片 | 主责 | 协作者 | 验收 |
 |------|------|------|--------|------|
-| P0-1 | 基础设施 | D | — | `docker compose up -d` 绿 |
-| P0-2 | 上传 + 课程 CRUD | 负责人 | D | POST upload 返回 job_id |
-| P0-3 | 转写 sample | C | D | mp4 → 带时间戳 JSON |
-| P0-4 | Worker 调度 | D | C | 提交 job / 查状态 |
+| P0-1 | 基础设施 | ~~D~~ **已交付** | — | `docker compose up -d` 绿 |
+| P0-2 | 上传 + 课程 CRUD | 负责人 + **D** | D | POST upload ✅；Course PG/API（D） |
+| P0-3 | 转写 sample | C | D | mp4 → 带时间戳 JSON（WhisperX） |
+| P0-4 | Job API + Worker | **D** | C | POST/GET `/jobs` + 队列调度 |
 | P0-5 | 对齐 + RAG | 负责人 | C | 转写+OCR → 问答 API |
 | P0-6 | Web 时间轴 | A | 负责人 | 播放 + 调 API |
 | P0-7 | 小程序列表 | B | 负责人 | 列表 + 问答 |
@@ -44,7 +46,7 @@ web (A) ──────┼──► FastAPI + Agent (负责人) ──► PG 
 | 契约 |  Owner | 说明 |
 |------|--------|------|
 | REST API | 负责人 | 路径、请求/响应 JSON |
-| 转写结果 schema | C 提议，负责人确认 | 字段：text, start, end, speaker |
+| 转写结果 schema | 负责人 | `schemas/transcript.py` 已发布 |
 | OCR 结果 schema | C 提议，负责人确认 | page, text, bbox |
 | Job 状态 | D | pending / running / done / failed |
 | MinIO 路径约定 | 负责人 | bucket/key 命名 |
@@ -53,8 +55,8 @@ web (A) ──────┼──► FastAPI + Agent (负责人) ──► PG 
 
 ## 5. 周会（20 分钟）
 
-1. D：环境/队列状态  
-2. C：多媒体 blocker  
+1. D：Job API / Worker 进度  
+2. C：WhisperX / 转写 blocker  
 3. 负责人：API 变更、联调窗口  
 4. A/B：前端对接进度  
 5. 定 1 条「全链路可演示」切片
@@ -63,7 +65,9 @@ web (A) ──────┼──► FastAPI + Agent (负责人) ──► PG 
 
 | 现象 | 先找 |
 |------|------|
-| 502 / 连不上 API | D → 负责人 |
+| 502 / 连不上 API | 全员查 docker compose → 负责人 |
+| Course 重启丢数据 | D · course PG |
+| POST /jobs 失败 | D |
 | upload 失败 | 负责人 |
 | 转写空/慢 | C → D 看 worker |
 | 对齐/RAG 胡答 | 负责人 |

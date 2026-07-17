@@ -3,13 +3,17 @@
 ## 架构
 
 ```
-miniapp (队友B) ──┐
-web (队友A) ──────┼──► FastAPI (负责人) ──► PostgreSQL / Redis / MinIO
-                  │         │
-                  │    agent + alignment (负责人)
-                  │         │
-                  └── multimedia ASR/OCR (队友C) ◄── workers (队友D)
+miniapp (B) ──┐
+web (A) ──────┼──► FastAPI ──► PostgreSQL / Redis / MinIO
+              │      │
+              │  负责人：upload / alignment / RAG
+              │  D：courses / jobs API + Worker
+              └── C：FFmpeg · WhisperX · OCR
 ```
+
+## 文档入口
+
+**全员先读：** [TEAM_ASSIGNMENT.md](TEAM_ASSIGNMENT.md)
 
 ## 快速启动
 
@@ -19,15 +23,36 @@ cd backend && uvicorn app.main:app --reload
 cd web && npm run dev
 ```
 
+## 当前 API（OpenAPI `/docs`）
+
+| 方法 | 路径 | 状态 | 主责 |
+|------|------|------|------|
+| GET | `/api/v1/health` | ✅ | — |
+| GET/POST | `/api/v1/courses` | ✅ 内存占位 | D → PG |
+| POST | `/api/v1/upload/presign` | ✅ | 负责人 |
+| POST | `/api/v1/upload/complete` | ✅ MinIO 对象校验 | 负责人 |
+| POST | `/api/v1/courses/{id}/ask` | ✅ RAG 占位 | 负责人 |
+| POST/GET | `/api/v1/jobs` | ⏳ | D |
+
+转写/OCR 输出契约：`backend/app/schemas/transcript.py`
+
+## 负责人阶段验证
+
+```powershell
+cd backend
+.\.venv\Scripts\pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pytest tests/ -q
+.\.venv\Scripts\uvicorn app.main:app --reload --port 8000
+```
+
 ## 文档索引
 
 | 文档 | 内容 |
 |------|------|
-| [COLLABORATION.md](COLLABORATION.md) | **5 人协作主手册** |
+| [TEAM_ASSIGNMENT.md](TEAM_ASSIGNMENT.md) | **分工总表 · 全员先读** |
+| [COLLABORATION.md](COLLABORATION.md) | 联调、契约、周会 |
 | [BACKLOG.md](BACKLOG.md) | 垂直切片任务 |
-| [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 具体交付 |
-| [TODO_OWNER.md](TODO_OWNER.md) | 负责人待办 |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | PR 规范 |
+| [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 各角色交付 |
 
 ## 注意事项
 

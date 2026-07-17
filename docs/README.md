@@ -2,21 +2,25 @@
 
 | 文档 | 读者 | 内容 |
 |------|------|------|
-| [COLLABORATION.md](COLLABORATION.md) | **全员** | 5 人角色、切片、联调、周会 |
-| [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 全员 | 具体交付清单 |
-| [BACKLOG.md](BACKLOG.md) | 全员 | Issue 化任务 |
+| **[TEAM_ASSIGNMENT.md](TEAM_ASSIGNMENT.md)** | **全员 · 先读** | 分工总表、第一步、边界、FAQ |
+| [COLLABORATION.md](COLLABORATION.md) | 全员 | 联调、契约、周会、排错 |
+| [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 全员 | 各角色交付清单 |
+| [BACKLOG.md](BACKLOG.md) | 全员 | 可勾选任务 #P0-x |
+| [GITHUB_ISSUES.md](GITHUB_ISSUES.md) | 负责人 | **Issue 创建与 Assign** |
 | [PROJECT_GUIDE.md](PROJECT_GUIDE.md) | 新人 | 架构与启动 |
-| [TEAM_ASSIGNMENT.md](TEAM_ASSIGNMENT.md) | 全员 | 模块归属表 |
 | [TODO_OWNER.md](TODO_OWNER.md) | 负责人 | P0 待办 |
-| [INNOVATION_ROADMAP.md](INNOVATION_ROADMAP.md) | 答辩 | 创新路线 |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | 提交 PR 前 | 合并门槛 |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | 提 PR 前 | 合并门槛 |
 
-## 模块文档
+## 模块文档（按成员）
 
-- [M01 前端 Vue](modules/M01-frontend-vue.md) — 成员 A  
-- [M02 小程序](modules/M02-miniapp.md) — 成员 B  
-- [M03 多媒体](modules/M03-multimedia.md) — 成员 C  
-- [M04 数据/运维](modules/M04-data-infra.md) — 成员 D  
+| 成员 | 模块 | 文档 |
+|------|------|------|
+| A | M1 Web | [M01-frontend-vue.md](modules/M01-frontend-vue.md) |
+| B | M2 小程序 | [M02-miniapp.md](modules/M02-miniapp.md) |
+| C | M3 多媒体 | [M03-multimedia.md](modules/M03-multimedia.md) |
+| 全员 | M4 基础设施（已交付） | [M04-data-infra.md](modules/M04-data-infra.md) |
+| 负责人 | M5 智能链路 | [TODO_OWNER.md](TODO_OWNER.md) |
+| D | M6 Job/课程 API | [M05-backend-jobs-api.md](modules/M05-backend-jobs-api.md) |
 
 ## ADR
 
