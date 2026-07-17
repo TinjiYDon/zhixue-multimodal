@@ -99,7 +99,7 @@ pyparsing==3.3.2
 pyserial==3.5
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.2
-python-multipart==0.0.20
+python-multipart>=0.0.18
 pytorch-lightning==2.6.5
 pytorch-metric-learning==2.9.0
 PyYAML==6.0.3
@@ -121,7 +121,7 @@ SQLAlchemy==2.0.51
 standard-aifc==3.13.0
 standard-chunk==3.13.0
 standard-sunau==3.13.0
-starlette==0.45.3
+starlette>=0.35.0
 sympy==1.14.0
 threadpoolctl==3.6.0
 tokenizers==0.22.2
@@ -137,7 +137,7 @@ typer==0.27.0
 typing-inspection==0.4.2
 typing_extensions==4.16.0
 tzdata==2026.3
-urllib3==2.5.0
+urllib3>=2.2.0
 uvicorn==0.34.2
 watchfiles==1.2.0
 websockets==16.1
