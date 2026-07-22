@@ -97,7 +97,8 @@ gh issue create --repo TinjiYDon/zhixue-multimodal `
 | [#8](https://github.com/TinjiYDon/zhixue-multimodal/issues/8) | P0-7 小程序 | B | `oceancat91` · 🔔 已催 |
 
 负责人 2026-07-22：合 #9 · 催 #4/#5/#7/#8 · `GET .../timeline` 占位  
-负责人 2026-07-22b：合入 D `course-job-zyc`（jobs + course CRUD + worker）· upload→job · pytest 含 jobs
+负责人 2026-07-22b：合入 D `course-job-zyc`（jobs + course CRUD + worker）· upload→job · pytest 含 jobs  
+负责人 2026-07-22c：`DEMO_E2E.md`（#P0-5c）· ICU MCP 骨架 · Bugbot 文档
 
 **说明：** P0-2 里 `#P0-2b` Course PG 是 **D** 的子任务，写在 P0-2 或 P0-4 Issue 的 checklist 里，**不要**再开独立 Epic，避免 D 和负责人抢同一个 Issue。
 

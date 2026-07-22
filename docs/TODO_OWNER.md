@@ -14,7 +14,9 @@
 | review PR #1 | multimedia | ⏳ request changes |
 | 合入 D jobs | `course-job-zyc` → main | ✅ 2026-07-22（内存骨架） |
 | upload→job | `#P0-2a` | ✅ |
+| 全链路 demo 文档 | `docs/DEMO_E2E.md` | ✅ `#P0-5c` |
 | RAG 正式版 | pgvector | ⏳ 等 C 转写 + D PG |
+| Bugbot | `docs/BUGBOT.md` | ⏳ Dashboard Enable |
 
 ## 催促（已发 2026-07-22）
 

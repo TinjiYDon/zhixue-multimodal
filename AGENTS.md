@@ -20,7 +20,9 @@
 
 1. `docs/TEAM_ASSIGNMENT.md`
 2. `docs/BACKLOG.md`
-3. `docs/STATUS` 类 / `TODO_OWNER.md`
+3. `docs/DEMO_E2E.md`（全链路边界）
+4. `docs/TODO_OWNER.md`
+5. `docs/BUGBOT.md`
 
 ## 命令
 
