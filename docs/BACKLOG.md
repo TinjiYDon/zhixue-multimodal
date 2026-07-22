@@ -44,9 +44,9 @@
 
 - [x] **#P0-2** `endpoints/upload.py` MinIO 预签名 + complete + **对象校验**（**负责人** ✅ · Issue #2 closed）
 - [x] **#P0-2d** `backend/tests/test_upload.py` smoke（**负责人** ✅）
-- [ ] **#P0-2a** upload complete 后自动触发 job（等 D 的 `/jobs` 联调）
-- [ ] **#P0-2b** `course_service.py` PostgreSQL CRUD（**D**）
-- [x] **#P0-2c** `router.py` 注册 upload/ask/timeline（**负责人** ✅；jobs 等 D PR review）
+- [x] **#P0-2a** upload complete 后自动创建 job + 后台跑 Worker（**负责人+D** ✅ 2026-07-22）
+- [ ] **#P0-2b** `course_service.py` **PostgreSQL** CRUD（**D** 续作；当前为内存 CRUD 骨架）
+- [x] **#P0-2c** `router.py` 注册 upload/ask/timeline/jobs（✅）
 
 ---
 
@@ -62,8 +62,9 @@
 
 ## P0-4 · Job API + Worker（D · yucc280 + C）
 
-- [ ] **#P0-4** `endpoints/jobs.py` + `job_service.py` POST/GET
-- [ ] **#P0-4b** `workers/tasks.py` 调 C 的 `transcribe_media`，更新 Job 状态
+- [x] **#P0-4** `endpoints/jobs.py` + `job_service.py` POST/GET（内存骨架 · 分支 `course-job-zyc` 已合入）
+- [x] **#P0-4b** `workers/tasks.py` 调 `transcribe_media`（C 未就绪 → job=`failed` 可接受）
+- [ ] **#P0-4c** Job/Course **落 PG** + 队列（Redis/Celery）正式化（D）
 
 ---
 

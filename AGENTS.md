@@ -40,9 +40,10 @@ npm run build
 |------|------|------|
 | POST | `/api/v1/upload/presign` `/complete` | ✅ |
 | GET/POST | `/api/v1/courses` | ✅ 内存 |
+| GET/PATCH/DELETE | `/api/v1/courses/{id}` | ✅ 内存 CRUD |
 | GET | `/api/v1/courses/{id}/timeline` | ✅ 占位 |
 | POST | `/api/v1/courses/{id}/ask` | ✅ 占位 RAG |
-| POST/GET | `/api/v1/jobs` | ❌ D |
+| POST/GET | `/api/v1/jobs` | ✅ 内存骨架（D）；upload/complete 会自动建 job |
 
 **禁止**：自造 `POST /api/v1/ask`（错误路径）。
 

@@ -91,12 +91,13 @@ gh issue create --repo TinjiYDon/zhixue-multimodal `
 |-------|------|------|--------|
 | [#2](https://github.com/TinjiYDon/zhixue-multimodal/issues/2) | P0-2 upload | 负责人 | `TinjiYDon` · ✅ closed |
 | [#4](https://github.com/TinjiYDon/zhixue-multimodal/issues/4) | P0-3 多媒体 | C | `whq6830-arch` · 🔔 request changes |
-| [#5](https://github.com/TinjiYDon/zhixue-multimodal/issues/5) | P0-4 Job API | D | `yucc280` · 🔔 已催 |
+| [#5](https://github.com/TinjiYDon/zhixue-multimodal/issues/5) | P0-4 Job API | D | `yucc280` · ✅ API/Worker 骨架已合；PG 续作 |
 | [#6](https://github.com/TinjiYDon/zhixue-multimodal/issues/6) | P0-5 RAG/ask | 负责人 | `TinjiYDon` · timeline 占位已加 |
 | [#7](https://github.com/TinjiYDon/zhixue-multimodal/issues/7) | P0-6 Web | A | `RynnYuan` · PR #9 ✅ merged |
 | [#8](https://github.com/TinjiYDon/zhixue-multimodal/issues/8) | P0-7 小程序 | B | `oceancat91` · 🔔 已催 |
 
-负责人 2026-07-22：合 #9 · 催 #4/#5/#7/#8 · `GET .../timeline` 占位 · pytest 7 passed
+负责人 2026-07-22：合 #9 · 催 #4/#5/#7/#8 · `GET .../timeline` 占位  
+负责人 2026-07-22b：合入 D `course-job-zyc`（jobs + course CRUD + worker）· upload→job · pytest 含 jobs
 
 **说明：** P0-2 里 `#P0-2b` Course PG 是 **D** 的子任务，写在 P0-2 或 P0-4 Issue 的 checklist 里，**不要**再开独立 Epic，避免 D 和负责人抢同一个 Issue。
 

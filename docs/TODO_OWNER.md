@@ -9,11 +9,12 @@
 | 问答 API | `courses/{id}/ask` + `agent.py` | ✅ |
 | timeline API | `GET /courses/{id}/timeline` | ✅ 占位 2026-07-22 |
 | 对齐服务 | `alignment.py` | ✅ 占位 |
-| API 测试 | `backend/tests/` | ✅ 7 pytest |
+| API 测试 | `backend/tests/` | ✅ upload/ask/timeline/jobs |
 | 合并 PR #9 | web UI | ✅ |
 | review PR #1 | multimedia | ⏳ request changes |
-| RAG 正式版 | pgvector | ⏳ 等 C/D |
-| review D PR | jobs | ⏳ 待 D 提交 |
+| 合入 D jobs | `course-job-zyc` → main | ✅ 2026-07-22（内存骨架） |
+| upload→job | `#P0-2a` | ✅ |
+| RAG 正式版 | pgvector | ⏳ 等 C 转写 + D PG |
 
 ## 催促（已发 2026-07-22）
 

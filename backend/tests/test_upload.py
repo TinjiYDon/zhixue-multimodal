@@ -33,7 +33,9 @@ def test_upload_complete_ok(client):
             json={"course_id": "c1", "media_key": "courses/c1/abc.mp4"},
         )
     assert resp.status_code == 200
-    assert resp.json()["media_key"] == "courses/c1/abc.mp4"
+    body = resp.json()
+    assert body["media_key"] == "courses/c1/abc.mp4"
+    assert body["job_id"] and body["job_id"].startswith("job_")
 
 
 def test_upload_complete_bad_prefix(client):
