@@ -8,3 +8,4 @@
 正文: 见 scripts/nudge-issue-7-a.md 与 https://github.com/TinjiYDon/zhixue-multimodal/issues/7
 
 说明: yucc280 / oceancat91 无公开邮箱，已用 GitHub Issue @ 通知（#5 / #8）。
+本机无 SMTP：请用 QQ/Outlook 手动粘贴上方两封发送（GitHub 评论已发出）。
