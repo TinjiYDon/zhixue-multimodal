@@ -16,7 +16,7 @@
 | upload→job | `#P0-2a` | ✅ |
 | 全链路 demo 文档 | `docs/DEMO_E2E.md` | ✅ `#P0-5c` |
 | RAG 正式版 | pgvector | ⏳ 等 C 转写 + D PG |
-| Bugbot | `docs/BUGBOT.md` | ⏳ Dashboard Enable |
+| Bugbot | `docs/BUGBOT.md` | ✅ 已开 2026-07-22 |
 
 ## 催促（已发 2026-07-22）
 
