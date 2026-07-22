@@ -1,0 +1,10 @@
+主题: [智学] PR #1 需按 schema 返工 · Issue #4
+收件人: whq6830@gmail.com
+正文: 见仓库 scripts/nudge-pr1-c.md 与 https://github.com/TinjiYDon/zhixue-multimodal/issues/4
+
+---
+主题: [智学] PR #9 已合并 · 请准备 API 对接 · Issue #7
+收件人: 10244507408@stu.ecnu.edu.cn
+正文: 见 scripts/nudge-issue-7-a.md 与 https://github.com/TinjiYDon/zhixue-multimodal/issues/7
+
+说明: yucc280 / oceancat91 无公开邮箱，已用 GitHub Issue @ 通知（#5 / #8）。
