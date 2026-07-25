@@ -1,0 +1,59 @@
+{
+  "name": "智学多模态",
+  "appid": "",
+  "description": "智学多模态 - 学习辅助小程序",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app"
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "enhance": true,
+      "postcss": true,
+      "preloadBackgroundData": false,
+      "minified": true,
+      "newFeature": true,
+      "coverView": true,
+      "nodeModules": true,
+      "autoAudits": false,
+      "showShadowRootInWxmlPanel": true,
+      "scopeDataCheck": false,
+      "uglifyFileName": false,
+      "checkInvalidKey": true,
+      "checkSiteMap": true,
+      "uploadWithSourceMap": true,
+      "compileHotReLoad": false,
+      "lazyloadPlaceholderEnable": false,
+      "useMultiFrameRuntime": true,
+      "useApiHook": true,
+      "useApiHostProcess": true,
+      "babelSetting": {
+        "ignore": [],
+        "disablePlugins": [],
+        "outputPath": ""
+      },
+      "enablePassiveEvent": {
+        "enablePassiveEvent": true
+      },
+      "condition": false
+    },
+    "usingComponents": true,
+    "requiredPrivateInfos": [],
+    "permission": {},
+    "requiredBackgroundModes": [],
+    "plugins": {},
+    "preloadRule": {},
+    "resizable": false,
+    "darkmode": false,
+    "useExtendedLib": {},
+    "entryPagePath": "pages/index/index",
+    "supportedMaterials": [],
+    "workers": ""
+  }
+}
