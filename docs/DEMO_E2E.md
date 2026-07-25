@@ -21,8 +21,10 @@
 | 课程 | `POST/GET /api/v1/courses` | **内存**（重启丢失） |
 | 上传 | `POST /upload/presign` + PUT + `/complete` | complete 会 **自动建 job** |
 | Job | `POST/GET /api/v1/jobs` | 内存；Worker 调转写 |
-| Timeline | `GET /courses/{id}/timeline` | **占位**字幕/PPT |
-| Ask | `POST /courses/{id}/ask` | 内存 RAG + CJK 占位 |
+| Timeline | `GET /courses/{id}/timeline` | 占位 **或** fixture（`POST .../timeline/from-fixture`） |
+| Ask | `POST /courses/{id}/ask` | 内存 RAG；fixture 后可命中字幕 |
+
+Wave3：见 [`ROADMAP_EXEC.md`](ROADMAP_EXEC.md) · `timeline_store.py`
 | Web | `cd web && npm run dev` | UI 已合（PR #9）；数据仍 **mock** |
 
 ## 已知缺口（答辩前须清）

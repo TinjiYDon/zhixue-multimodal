@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.ask import AskRequest, AskResponse
 from app.schemas.course import CourseCreate, CourseRead
 from app.schemas.timeline import TimelineCue, TimelineResponse, TimelineSlide
-from app.services import agent, course_service
+from app.services import agent, course_service, timeline_store
 
 router = APIRouter()
 
@@ -20,7 +20,10 @@ async def create_course(body: CourseCreate):
 
 @router.get("/{course_id}/timeline", response_model=TimelineResponse, tags=["timeline"])
 async def get_course_timeline(course_id: str):
-    """Structured timeline for web/miniapp. Placeholder until jobs persist transcripts."""
+    """Prefer job-hook / fixture timeline; else static placeholder."""
+    stored = timeline_store.get_timeline(course_id)
+    if stored is not None:
+        return stored
     return TimelineResponse(
         course_id=course_id,
         status="placeholder",
@@ -33,8 +36,14 @@ async def get_course_timeline(course_id: str):
             TimelineSlide(page=1, t_start=0, title="封面（占位）"),
             TimelineSlide(page=2, t_start=30, title="要点（占位）"),
         ],
-        message="等待 D jobs + C multimedia 写入后由 alignment 聚合真实 timeline",
+        message="无 job 钩子数据时返回占位；可用 POST .../timeline/from-fixture 演示 Wave3",
     )
+
+
+@router.post("/{course_id}/timeline/from-fixture", response_model=TimelineResponse, tags=["timeline"])
+async def load_fixture_timeline(course_id: str):
+    """Wave3: ingest fixture transcript → timeline + RAG context (no C required)."""
+    return await timeline_store.ingest_job_result_to_timeline(course_id, None, use_fixture_on_fail=True)
 
 
 @router.get("/{course_id}", response_model=CourseRead)

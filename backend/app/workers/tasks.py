@@ -31,9 +31,27 @@ async def run_media_task(job_id: str) -> None:
             progress=1.0,
             result=str(result),
         )
+        # Wave3 hook: best-effort timeline ingest (fixture if result not structured)
+        try:
+            from app.services import timeline_store
+
+            await timeline_store.ingest_job_result_to_timeline(
+                job.course_id, result, use_fixture_on_fail=True
+            )
+        except Exception:
+            pass
     except Exception as exc:  # noqa: BLE001 — surface to job.error_msg
         await job_service.update_job(
             job_id,
             status="failed",
             error_msg=str(exc),
         )
+        # Still allow demo timeline via fixture when C not ready
+        try:
+            from app.services import timeline_store
+
+            await timeline_store.ingest_job_result_to_timeline(
+                job.course_id, None, use_fixture_on_fail=True
+            )
+        except Exception:
+            pass

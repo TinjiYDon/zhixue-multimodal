@@ -37,6 +37,7 @@
 - [x] **#P0-5e** `GET /courses/{id}/timeline` 占位响应（**负责人** ✅ 2026-07-22）
 - [ ] **#P0-5b+** pgvector 正式 RAG + LLM（等 C/D 转写入库）
 - [x] **#P0-5c** 全链路 demo 文档（**负责人** ✅ [`DEMO_E2E.md`](DEMO_E2E.md)）
+- [x] **#P0-5f** Wave3：fixture timeline 钩子（`timeline_store` + `/timeline/from-fixture`）✅
 
 ---
 
