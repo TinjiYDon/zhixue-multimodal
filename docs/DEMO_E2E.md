@@ -1,6 +1,6 @@
 # 全链路 Demo 说明（#P0-5c）
 
-> 更新：2026-07-22 · 负责人
+> 更新：2026-07-26 · 负责人
 
 ## 人读摘要
 
@@ -9,7 +9,7 @@
 | Owner | 负责人 TinjiYDon |
 | 目标 | 说明当前可演示边界与联调缺口 |
 | 依赖 | D PG · C 多媒体 · A 接 API |
-| 里程碑 | `#MILE-1` 未达成 |
+| 里程碑 | `#MILE-1` 未达成 · `#MILE-3` 小程序骨架 ✅ |
 
 ## 当前可跑
 
@@ -26,6 +26,7 @@
 
 Wave3：见 [`ROADMAP_EXEC.md`](ROADMAP_EXEC.md) · `timeline_store.py`
 | Web | `cd web && npm run dev` | UI 已合（PR #9）；数据仍 **mock** |
+| 小程序 | `cd miniapp && npm i && npm run dev:mp-weixin` | PR **#11** 已合；接真 API 待后端 |
 
 ## 已知缺口（答辩前须清）
 
@@ -35,7 +36,7 @@ Wave3：见 [`ROADMAP_EXEC.md`](ROADMAP_EXEC.md) · `timeline_store.py`
 | Course/Job **PostgreSQL** + 队列 | D | #5 · `#P0-2b` `#P0-4c` |
 | 真实 timeline / RAG 灌库 | 负责人 | 等 C/D · `#P0-5b+` |
 | Web 接真实 API | A | #7 · `#P0-6d` |
-| 小程序 | B | #8 |
+| 小程序接真 API | B | follow-up（骨架已合） |
 
 C 未实现时：Worker 将 job 标为 `failed`（`NotImplementedError`）——**属预期**，不是 upload 坏了。
 
