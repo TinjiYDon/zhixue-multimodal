@@ -1,6 +1,6 @@
-# 执行路线图 ROADMAP_EXEC（人机双可读）
+﻿# 执行路线图 ROADMAP_EXEC（人机双可读）
 
-> 更新：2026-07-26 · Wave3 fixture ✅ · miniapp PR#11 已合 · 仍无 ML 划分
+> 更新：2026-07-27 · PR 仍仅 #1 OPEN（request-changes）· 无新 PR · Wave3 fixture ✅ · miniapp PR#11 已合 · 仍无 ML 划分
 
 ## 人读摘要
 
@@ -30,3 +30,4 @@ miniapp：miniapp/（UniApp）· tip 含 3e5f03c
 - [ ] D：Course/Job PG（#5）
 - [ ] A：接 timeline/ask（#7 · `#P0-6d`）
 - [x] B：小程序骨架（#8 / PR #11）· 接真 API 待 MILE-1
+
