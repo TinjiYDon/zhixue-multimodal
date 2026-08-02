@@ -19,12 +19,12 @@ async def run_media_task(job_id: str):
     job.progress = 0.2
 
     try:
-        # 调用C的转写函数
-        transcript_result = await transcribe_media(job_id)
+        # 修复：传入job_id + media_key双参数，对接C的转写函数
+        transcript_result = await transcribe_media(job_id, job.media_key)
         # 转写成功，更新状态
         job.status = "done"
         job.progress = 1.0
-        job.result = str(transcript_result)
+        job.result = transcript_result
     except Exception as e:
         # 异常标记失败
         job.status = "failed"
