@@ -51,13 +51,13 @@
 
 ---
 
-## P0-3 · 多媒体 · WhisperX（C · whq6830-arch）
+## P0-3 · 多媒体 · WhisperX（Owner 代合 · C 可选增强）
 
-- [ ] **#P0-3** `ffmpeg_pipeline.py` 抽 16kHz 音频
-- [ ] **#P0-3b** `transcription.py` sample mp4 → JSON（时间戳，对齐 `schemas/transcript.py`）
-- [ ] **#P0-3c** `ocr.py` sample 图片 → 文本
+- [x] **#P0-3** `ffmpeg_pipeline.py` 抽 16kHz 音频（PR **#12** ✅）
+- [x] **#P0-3b** `transcription.py` → `TranscriptResult`（fixture 默认可测；WhisperX 可选）
+- [x] **#P0-3c** `ocr.py` → `OcrResult` / `OcrPageResult`（同上）
 
-> PR #1 仍 OPEN + CHANGES_REQUESTED（核对 2026-08-02）· **不合 main** · 见 Issue #4 / PR 评论；需 schema/依赖/样例清理/测试。
+> PR #1 已关闭；由 Owner PR #12 一次落地 request-changes。真 WhisperX/GPU 样例由 C 在本机验证后贴 Issue，**勿再开碎 PR**。
 
 ---
 
