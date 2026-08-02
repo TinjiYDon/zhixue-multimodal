@@ -57,7 +57,7 @@
 - [ ] **#P0-3b** `transcription.py` sample mp4 → JSON（时间戳，对齐 `schemas/transcript.py`）
 - [ ] **#P0-3c** `ocr.py` sample 图片 → 文本
 
-> PR #1 request changes（2026-07-22），见 Issue #4 / PR 评论。
+> PR #1 仍 OPEN + CHANGES_REQUESTED（核对 2026-08-02）· **不合 main** · 见 Issue #4 / PR 评论；需 schema/依赖/样例清理/测试。
 
 ---
 
