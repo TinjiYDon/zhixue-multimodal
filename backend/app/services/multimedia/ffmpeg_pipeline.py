@@ -1,6 +1,5 @@
 import logging
 import os
-import shlex
 import subprocess
 
 logger = logging.getLogger(__name__)
@@ -8,15 +7,11 @@ logger = logging.getLogger(__name__)
 
 def extract_audio(input_path: str, output_path: str, sample_rate: int = 16000) -> str:
     """Extract audio stream from media file using ffmpeg."""
-    # 使用 shlex.quote 转义参数，防止命令注入风险（满足 Sourcery 安全规范）
-    safe_input = shlex.quote(str(input_path))
-    safe_output = shlex.quote(str(output_path))
-
     cmd = [
         "ffmpeg",
         "-y",
         "-i",
-        safe_input,
+        str(input_path),
         "-vn",
         "-acodec",
         "pcm_s16le",
@@ -24,12 +19,13 @@ def extract_audio(input_path: str, output_path: str, sample_rate: int = 16000) -
         str(sample_rate),
         "-ac",
         "1",
-        safe_output,
+        str(output_path),
     ]
-    
+
     logger.info("extract_audio: %s -> %s (%s Hz)", input_path, output_path, sample_rate)
-    
+
     try:
+        # sourcery skip: avoid-subprocess
         subprocess.run(
             cmd,
             stdout=subprocess.PIPE,
