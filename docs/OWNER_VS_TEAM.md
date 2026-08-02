@@ -1,6 +1,7 @@
 # 智学多模态 · 分工与交付清单
 
-> 总表与上手指南：**[`TEAM_ASSIGNMENT.md`](TEAM_ASSIGNMENT.md)**（全员先读）
+> 总表与上手指南：**[`TEAM_ASSIGNMENT.md`](TEAM_ASSIGNMENT.md)**（全员先读）  
+> **边界**：课堂实时多模态 Agent；与 ICU decision/scheduling **零代码耦合**（见工作区 `docs/POSITIONING.md`）。
 
 ---
 

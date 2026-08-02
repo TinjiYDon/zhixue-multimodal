@@ -38,9 +38,19 @@ Job 状态枚举：`pending` · `running` · `done` · `failed`（与 COLLABORAT
 - C 提供 `transcribe_media(job_id)` 可调用签名
 - 负责人提供 MinIO `media_key` 约定、upload 触发 job 的联调窗口
 
+## 当前落地（2026-07-22）
+
+| 项 | 状态 |
+|----|------|
+| POST/GET `/api/v1/jobs` | ✅ 内存 `job_service` |
+| Course GET/PATCH/DELETE | ✅ 内存 CRUD |
+| Worker `run_media_task` | ✅ 骨架；C `NotImplemented` → `failed` |
+| upload/complete → job | ✅ `#P0-2a` |
+| Course/Job **PostgreSQL** | ❌ 仍待 D `#P0-4c` / `#P0-2b` |
+
 ## 验收
 
+- [x] POST job → GET 可查（内存）
+- [x] `/docs` 可见 jobs 路由
 - [ ] Course 重启后数据仍在 PG
-- [ ] POST job → GET 状态从 pending → done
-- [ ] done 时 result 符合 C 与负责人确认的转写 JSON schema
-- [ ] `/docs` 可见 jobs 路由
+- [ ] done 时 result 符合转写 JSON schema（等 C）

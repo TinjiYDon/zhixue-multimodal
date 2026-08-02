@@ -1,12 +1,18 @@
-## 模块
+## 人读摘要
 
-<!-- M1 web / M2 miniapp / M3 multimedia / M4 worker / M5-M6 后端 -->
+| 项 | 内容 |
+|----|------|
+| 模块 | <!-- M1 web / M2 miniapp / M3 multimedia / M5-M6 后端 --> |
+| Owner | |
+| 关联 Issue | Closes # |
 
 ## 做了什么
 
+-
+
 ## 如何验证
 
-```bash
+```powershell
 
 ```
 
@@ -14,6 +20,15 @@
 
 - [ ] 未破坏 OpenAPI / 已与负责人对齐
 - [ ] 新增 endpoint 已更新 `/docs` 或 issue 说明
+- [ ] ask 路径为 `POST /api/v1/courses/{id}/ask`（勿用 `/api/v1/ask`）
+
+## 给 AI 的上下文
+
+```text
+改动目录：
+禁改目录：
+验收命令：
+```
 
 ## 影响范围
 
@@ -21,11 +36,7 @@
 - [ ] web
 - [ ] miniapp
 - [ ] worker / docker
-- [ ] 仅文档
-
-## 关联 Issue
-
-Closes #
+- [ ] 文档 / AGENTS.md
 
 ## 负责人确认（API/集成变更时）
 
