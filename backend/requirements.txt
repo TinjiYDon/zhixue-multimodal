@@ -5,6 +5,4 @@ python-multipart==0.0.27
 httpx==0.28.1
 minio==7.2.15
 pytest==8.3.5
-sqlalchemy[asyncio]==2.0.41
-asyncpg==0.30.0
-aiosqlite==0.21.0
+

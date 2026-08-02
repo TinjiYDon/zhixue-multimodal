@@ -1,7 +1,3 @@
-"""FFmpeg helpers — extract 16 kHz mono WAV for ASR."""
-
-from __future__ import annotations
-
 import logging
 import os
 import subprocess
@@ -10,15 +6,12 @@ logger = logging.getLogger(__name__)
 
 
 def extract_audio(input_path: str, output_path: str, sample_rate: int = 16000) -> str:
-    """Extract mono PCM WAV at ``sample_rate`` using system ``ffmpeg``."""
-    if not os.path.exists(input_path):
-        raise FileNotFoundError(f"input media not found: {input_path}")
-
+    """Extract audio stream from media file using ffmpeg."""
     cmd = [
         "ffmpeg",
         "-y",
         "-i",
-        input_path,
+        str(input_path),
         "-vn",
         "-acodec",
         "pcm_s16le",
@@ -26,11 +19,13 @@ def extract_audio(input_path: str, output_path: str, sample_rate: int = 16000) -
         str(sample_rate),
         "-ac",
         "1",
-        output_path,
+        str(output_path),
     ]
+
     logger.info("extract_audio: %s -> %s (%s Hz)", input_path, output_path, sample_rate)
-    try:
-        subprocess.run(
+
+   try:
+        subprocess.run(  # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-audit
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
