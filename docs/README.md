@@ -14,6 +14,8 @@
 | [ROADMAP_EXEC.md](ROADMAP_EXEC.md) | 全员 | MILE 执行记录 |
 | [ACCEPTANCE_ZHIXUE.md](ACCEPTANCE_ZHIXUE.md) | 全员 | 人工验收报告 |
 | [REPORT_OUTLINE.md](REPORT_OUTLINE.md) | 结项 | 第 2–4 部分填空框架 |
+| [结项报告-第1部分-模型架构与算法.docx](结项报告-第1部分-模型架构与算法.docx) | 结项 | 第 1 部分可用正文（Word） |
+| [项目详细介绍与结项第2-4部分补充.docx](项目详细介绍与结项第2-4部分补充.docx) | 结项 | 详细介绍 + 第 2–4 关键词补充（Word） |
 | [TODO_OWNER.md](TODO_OWNER.md) | 负责人 | P0 待办 |
 | [CONTRIBUTING.md](../CONTRIBUTING.md) | 提 PR 前 | 合并门槛 |
 
