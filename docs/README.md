@@ -8,6 +8,12 @@
 | [BACKLOG.md](BACKLOG.md) | 全员 | 可勾选任务 #P0-x |
 | [GITHUB_ISSUES.md](GITHUB_ISSUES.md) | 负责人 | **Issue 创建与 Assign** |
 | [PROJECT_GUIDE.md](PROJECT_GUIDE.md) | 新人 | 架构与启动 |
+| [PROGRESS.md](PROGRESS.md) | 全员 / AI | 里程碑完成度 |
+| [CHANGELOG.md](CHANGELOG.md) | 全员 / AI | 本仓变更与 Release |
+| [ROADMAP.md](ROADMAP.md) | 全员 / AI | 下一版本 |
+| [ROADMAP_EXEC.md](ROADMAP_EXEC.md) | 全员 | MILE 执行记录 |
+| [ACCEPTANCE_ZHIXUE.md](ACCEPTANCE_ZHIXUE.md) | 全员 | 人工验收报告 |
+| [REPORT_OUTLINE.md](REPORT_OUTLINE.md) | 结项 | 第 2–4 部分填空框架 |
 | [TODO_OWNER.md](TODO_OWNER.md) | 负责人 | P0 待办 |
 | [CONTRIBUTING.md](../CONTRIBUTING.md) | 提 PR 前 | 合并门槛 |
 
