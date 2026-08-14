@@ -78,7 +78,9 @@
 
 ## 联调里程碑
 
-- [ ] **#MILE-1** D+C+负责人：Course PG + jobs + upload → 转写入库
-- [ ] **#MILE-2** +A：Web 播放时间轴
+> 与 [`ROADMAP_EXEC.md`](ROADMAP_EXEC.md) 对齐（2026-08-14）
+
+- [x] **#MILE-1** D+C+负责人：Course PG + jobs + upload → 转写入库（Owner 代合）
+- [x] **#MILE-2** +A：Web 接真 timeline/ask 骨架（main；Issue #7 验收标准待关）
 - [x] **#MILE-3** +B：小程序列表骨架（PR #11 ✅；接真 API 随 MILE-1/2）
 - [ ] **#MILE-4** 答辩彩排：端到端 5 分钟 demo

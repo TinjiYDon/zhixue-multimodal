@@ -8,6 +8,15 @@
 
 **从 [`docs/TEAM_ASSIGNMENT.md`](docs/TEAM_ASSIGNMENT.md) 开始 · 分工见 [`docs/OWNER_VS_TEAM.md`](docs/OWNER_VS_TEAM.md)**
 
+| 文档 | 说明 |
+|------|------|
+| [docs/ROADMAP_EXEC.md](docs/ROADMAP_EXEC.md) | 执行路线图（MILE） |
+| [docs/BACKLOG.md](docs/BACKLOG.md) | P0 切片 |
+| 工作区 [PROGRESS / CHANGELOG / ROADMAP](../docs/PROGRESS.md) | 跨仓结项汇总 |
+| 工作区 [ACCEPTANCE_ZHIXUE.md](../docs/ACCEPTANCE_ZHIXUE.md) | 人工验收报告 |
+
+**Open**：Issues [#6](https://github.com/TinjiYDon/zhixue-multimodal/issues/6)、[#7](https://github.com/TinjiYDon/zhixue-multimodal/issues/7)；PR [#13](https://github.com/TinjiYDon/zhixue-multimodal/pull/13)。
+
 ## 快速启动
 
 ```powershell
