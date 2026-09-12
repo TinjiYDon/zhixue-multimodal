@@ -44,7 +44,6 @@ def _box_to_bbox(box) -> list[float]:
     try:
         xs = [float(p[0]) for p in box]
         ys = [float(p[1]) for p in box]
-        # If values look like pixels, leave absolute; schema allows floats.
         return [min(xs), min(ys), max(xs), max(ys)]
     except Exception:
         return []
