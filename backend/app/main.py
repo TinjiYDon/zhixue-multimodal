@@ -37,8 +37,3 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix=settings.api_v1_prefix)
-
-
-@app.get("/health", tags=["health"])
-async def health_root():
-    return {"status": "ok", "service": settings.app_name}
