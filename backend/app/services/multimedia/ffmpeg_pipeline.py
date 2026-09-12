@@ -23,8 +23,7 @@ def extract_audio(input_path: str, output_path: str, sample_rate: int = 16000) -
     ]
 
     logger.info("extract_audio: %s -> %s (%s Hz)", input_path, output_path, sample_rate)
-
-   try:
+    try:
         subprocess.run(  # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-audit
             cmd,
             stdout=subprocess.PIPE,
