@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 
-onLaunch(() => {
-  console.log('智学多模态小程序启动')
-})
+onLaunch(() => {})
 
-onShow(() => {
-  console.log('小程序显示')
-})
+onShow(() => {})
 
-onHide(() => {
-  console.log('小程序隐藏')
-})
+onHide(() => {})
 </script>
 
 <style lang="scss">
