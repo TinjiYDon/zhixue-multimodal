@@ -23,7 +23,6 @@ async def lifespan(_app: FastAPI):
         # MinIO may be offline during pure API dev; upload endpoints will 503.
         pass
     yield
-    # TODO: graceful shutdown
 
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
@@ -37,8 +36,3 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix=settings.api_v1_prefix)
-
-
-@app.get("/health", tags=["health"])
-async def health_root():
-    return {"status": "ok", "service": settings.app_name}
