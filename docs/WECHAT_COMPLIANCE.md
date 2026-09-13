@@ -18,7 +18,7 @@
 | ID | 项 | 现状（2026-09-13） | 上架前动作 | 状态 |
 |----|-----|-------------------|------------|------|
 | **B1** | 后端 API **鉴权** | ✅ `POST /auth/login` · Bearer · 保护 upload/ask/写课程/建 job | 生产设 `AUTH_REQUIRED=true`、`AUTH_DEV_LOGIN=false` + 微信密钥 | **工程已落地**（生产配置待填） |
-| **B2** | HTTPS **合法域名** | miniapp 支持 `VITE_API_BASE` / 本地 storage 覆盖 | 配置正式 HTTPS 域名；关 `urlCheck:false` | **BLOCKER**（运维） |
+| **B2** | HTTPS **合法域名** | miniapp 支持 `VITE_API_BASE` / 本地 storage 覆盖；步骤见 [DEPLOY_HTTPS.md](DEPLOY_HTTPS.md) | 配置正式 HTTPS 域名；关 `urlCheck:false` | **BLOCKER**（运维） |
 | **B3** | 隐私政策 / 用户协议 **可打开** | `pages/legal/*` + 设置页入口 | 法务替换正式文案 | 工程已铺页面 |
 | **B4** | 账号注销入口 | ✅ `DELETE /auth/me` + 小程序设置页 | 联调验证 | **工程已落地** |
 | **B5** | 密钥不进仓 | `.env` / `.env.example` | 勿提交微信 AppSecret | 持续 |
