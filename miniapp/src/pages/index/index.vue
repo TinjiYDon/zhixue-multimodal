@@ -8,6 +8,7 @@
     <view class="header">
       <view class="header-title">智学多模态</view>
       <view class="header-subtitle">课程列表</view>
+      <view class="header-settings" @tap="goSettings">设置</view>
     </view>
 
     <!-- 加载状态 -->
@@ -50,6 +51,10 @@
       <text :class="healthOk ? 'health-ok' : 'health-err'">
         {{ healthOk ? '正常' : '未连接' }}
       </text>
+      <text class="legal-sep"> · </text>
+      <text class="legal-link" @tap="goPrivacy">隐私政策</text>
+      <text class="legal-sep"> · </text>
+      <text class="legal-link" @tap="goTerms">用户协议</text>
     </view>
   </view>
 </template>
@@ -90,6 +95,18 @@ function goToCourse(course: Course) {
   })
 }
 
+function goPrivacy() {
+  uni.navigateTo({ url: '/pages/legal/privacy' })
+}
+
+function goTerms() {
+  uni.navigateTo({ url: '/pages/legal/terms' })
+}
+
+function goSettings() {
+  uni.navigateTo({ url: '/pages/settings/index' })
+}
+
 onMounted(() => {
   checkHealth()
   fetchCourses()
@@ -107,6 +124,7 @@ onMounted(() => {
   background: linear-gradient(135deg, #4a6cf7 0%, #6c63ff 100%);
   padding: 40px 20px 24px;
   color: #fff;
+  position: relative;
 
   .header-title {
     font-size: 22px;
@@ -117,6 +135,16 @@ onMounted(() => {
   .header-subtitle {
     font-size: 13px;
     opacity: 0.85;
+  }
+
+  .header-settings {
+    position: absolute;
+    right: 16px;
+    top: 40px;
+    font-size: 13px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 14px;
   }
 }
 
@@ -277,6 +305,15 @@ onMounted(() => {
 
   .health-err {
     color: #ff4d4f;
+  }
+
+  .legal-sep {
+    color: #ccc;
+  }
+
+  .legal-link {
+    color: #4a6cf7;
+    text-decoration: underline;
   }
 }
 </style>

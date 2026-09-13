@@ -1,6 +1,7 @@
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 
-from app.core.config import settings
+from app.api.deps import CurrentUser
+from app.core.config import allowed_upload_content_types, settings
 from app.schemas.job import JobCreate
 from app.schemas.upload import (
     UploadCompleteRequest,
@@ -14,8 +15,24 @@ from app.workers.tasks import run_media_task
 router = APIRouter()
 
 
+def _validate_upload_meta(content_type: str, size_bytes: int | None) -> None:
+    allowed = allowed_upload_content_types()
+    ct = (content_type or "").strip().lower()
+    if ct not in allowed:
+        raise HTTPException(
+            status_code=400,
+            detail=f"不支持的 content_type: {content_type}；允许: {sorted(allowed)}",
+        )
+    if size_bytes is not None and size_bytes > settings.upload_max_bytes:
+        raise HTTPException(
+            status_code=400,
+            detail=f"文件过大: {size_bytes} > max {settings.upload_max_bytes} bytes",
+        )
+
+
 @router.post("/presign", response_model=UploadPresignResponse)
-async def create_upload_presign(body: UploadPresignRequest):
+async def create_upload_presign(body: UploadPresignRequest, _user: CurrentUser):
+    _validate_upload_meta(body.content_type, body.size_bytes)
     media_key = storage.build_media_key(body.course_id, body.filename)
     try:
         upload_url = storage.presign_put_object(media_key, content_type=body.content_type)
@@ -28,11 +45,16 @@ async def create_upload_presign(body: UploadPresignRequest):
         bucket=settings.s3_bucket,
         expires_in=3600,
         content_type=body.content_type,
+        max_bytes=settings.upload_max_bytes,
     )
 
 
 @router.post("/complete", response_model=UploadCompleteResponse)
-async def complete_upload(body: UploadCompleteRequest, background_tasks: BackgroundTasks):
+async def complete_upload(
+    body: UploadCompleteRequest,
+    background_tasks: BackgroundTasks,
+    _user: CurrentUser,
+):
     expected_prefix = f"courses/{body.course_id}/"
     if not body.media_key.startswith(expected_prefix):
         raise HTTPException(status_code=400, detail="media_key 与 course_id 不匹配")

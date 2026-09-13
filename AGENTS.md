@@ -20,9 +20,17 @@
 
 1. `docs/TEAM_ASSIGNMENT.md`
 2. `docs/BACKLOG.md`
-3. `docs/DEMO_E2E.md` · `docs/ROADMAP_EXEC.md`
-4. `docs/TODO_OWNER.md`
-5. `docs/BUGBOT.md`
+3. `docs/DEMO_E2E.md` · `docs/ROADMAP.md` · `docs/ROADMAP_EXEC.md`
+4. `docs/WECHAT_COMPLIANCE.md`（**上架合规 Gate**）· `docs/ACCEPTANCE_MINIAPP.md`
+5. `docs/TODO_OWNER.md`
+6. `docs/BUGBOT.md`
+
+## 上架合规 Gate（微信小程序）
+
+- **禁止提审**直至 `docs/WECHAT_COMPLIANCE.md` Blocker（鉴权 B1、HTTPS B2、注销 B4 等）关闭。
+- 健全性验收：`docs/ACCEPTANCE_MINIAPP.md`。
+- 学习反馈飞轮默认关：`docs/DATA_FLYWHEEL.md`。
+- 小程序隐私/协议页：`miniapp/src/pages/legal/`。
 
 ## 命令
 
@@ -40,14 +48,16 @@ npm run build
 
 | 方法 | 路径 | 状态 |
 |------|------|------|
-| POST | `/api/v1/upload/presign` `/complete` | ✅ |
-| GET/POST | `/api/v1/courses` | ✅ 内存 |
-| GET/PATCH/DELETE | `/api/v1/courses/{id}` | ✅ 内存 CRUD |
+| POST | `/api/v1/auth/login` `/logout` · GET/DELETE `/auth/me` | ✅ 会话鉴权（上架 Gate） |
+| POST | `/api/v1/upload/presign` `/complete` | ✅ **需登录** · 类型/大小限制 |
+| GET/POST | `/api/v1/courses` | ✅ GET 公开 · POST 需登录 |
+| GET/PATCH/DELETE | `/api/v1/courses/{id}` | ✅ 写需登录 |
 | GET | `/api/v1/courses/{id}/timeline` | ✅ 占位 |
-| POST | `/api/v1/courses/{id}/ask` | ✅ 占位 RAG |
-| POST/GET | `/api/v1/jobs` | ✅ 内存骨架（D）；upload/complete 会自动建 job |
+| POST | `/api/v1/courses/{id}/ask` | ✅ **需登录** |
+| POST/GET | `/api/v1/jobs` | ✅ 创建需登录 |
 
-**禁止**：自造 `POST /api/v1/ask`（错误路径）。
+**禁止**：自造 `POST /api/v1/ask`（错误路径）。  
+**上架**：见 `docs/WECHAT_COMPLIANCE.md`；生产关闭 `AUTH_DEV_LOGIN`，配置微信 AppId/Secret 与 HTTPS 域名。
 
 ## 禁改（非负责人）
 
