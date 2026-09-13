@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
+from app.api.deps import CurrentUser
 from app.schemas.ask import AskRequest, AskResponse
 from app.schemas.course import CourseCreate, CourseRead
 from app.schemas.timeline import TimelineCue, TimelineResponse, TimelineSlide
@@ -10,11 +11,12 @@ router = APIRouter()
 
 @router.get("", response_model=list[CourseRead])
 async def list_courses():
+    """课程列表只读公开，便于未登录浏览；写操作与问答需登录。"""
     return await course_service.list_courses()
 
 
 @router.post("", response_model=CourseRead)
-async def create_course(body: CourseCreate):
+async def create_course(body: CourseCreate, _user: CurrentUser):
     return await course_service.create_course(body)
 
 
@@ -41,7 +43,7 @@ async def get_course_timeline(course_id: str):
 
 
 @router.post("/{course_id}/timeline/from-fixture", response_model=TimelineResponse, tags=["timeline"])
-async def load_fixture_timeline(course_id: str):
+async def load_fixture_timeline(course_id: str, _user: CurrentUser):
     """Wave3: ingest fixture transcript → timeline + RAG context (no C required)."""
     return await timeline_store.ingest_job_result_to_timeline(course_id, None, use_fixture_on_fail=True)
 
@@ -55,7 +57,7 @@ async def get_single_course(course_id: str):
 
 
 @router.patch("/{course_id}", response_model=CourseRead)
-async def patch_course(course_id: str, body: CourseCreate):
+async def patch_course(course_id: str, body: CourseCreate, _user: CurrentUser):
     updated = await course_service.update_course(course_id, body.title)
     if not updated:
         raise HTTPException(status_code=404, detail="课程不存在")
@@ -63,7 +65,7 @@ async def patch_course(course_id: str, body: CourseCreate):
 
 
 @router.delete("/{course_id}")
-async def remove_course(course_id: str):
+async def remove_course(course_id: str, _user: CurrentUser):
     ok = await course_service.delete_course(course_id)
     if not ok:
         raise HTTPException(status_code=404, detail="课程不存在")
@@ -71,6 +73,6 @@ async def remove_course(course_id: str):
 
 
 @router.post("/{course_id}/ask", response_model=AskResponse, tags=["ask"])
-async def ask_course(course_id: str, body: AskRequest):
+async def ask_course(course_id: str, body: AskRequest, _user: CurrentUser):
     answer, sources = await agent.answer_question(course_id, body.question)
     return AskResponse(course_id=course_id, answer=answer, sources=sources)

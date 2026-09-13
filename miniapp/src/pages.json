@@ -11,6 +11,24 @@
       "style": {
         "navigationBarTitleText": "课程详情"
       }
+    },
+    {
+      "path": "pages/settings/index",
+      "style": {
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/legal/privacy",
+      "style": {
+        "navigationBarTitleText": "隐私政策"
+      }
+    },
+    {
+      "path": "pages/legal/terms",
+      "style": {
+        "navigationBarTitleText": "用户协议"
+      }
     }
   ],
   "globalStyle": {

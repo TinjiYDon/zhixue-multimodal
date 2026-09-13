@@ -73,6 +73,8 @@
 
 - [x] **#P0-7** UniApp 初始化 + 域名白名单（PR **#11** 已合 2026-07-26 · tip `3e5f03c`）
 - [x] **#P0-7b** 课程列表 + 简单问答页（同上；API 仍可指向 mock/本地）
+- [x] **#P0-7c** 隐私/协议占位页 + 列表入口（合规 Z0 铺底）
+- [ ] **#P0-7-ship** 微信上架：关闭 [WECHAT_COMPLIANCE.md](WECHAT_COMPLIANCE.md) Blocker（鉴权/HTTPS/注销）+ [ACCEPTANCE_MINIAPP.md](ACCEPTANCE_MINIAPP.md)
 
 ---
 

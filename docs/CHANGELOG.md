@@ -17,6 +17,10 @@ auth: none
 
 ## [Unreleased]
 
+- **鉴权骨架（Z0）**：`/api/v1/auth/login|logout|me` · Bearer 保护 upload/ask/写接口；`DELETE /auth/me` 注销。
+- **上传限制（B6）**：content_type 白名单 + `size_bytes` / `UPLOAD_MAX_BYTES`。
+- 小程序：统一超时/错误、token、设置页（登录/注销/飞轮开关）、`VITE_API_BASE`。
+- 微信上架合规文档更新 Blocker 状态；健全性见 `ACCEPTANCE_MINIAPP.md`。
 - Open PR [#13](https://github.com/TinjiYDon/zhixue-multimodal/pull/13)（`multimedia_new`）。
 - Open Issues [#6](https://github.com/TinjiYDon/zhixue-multimodal/issues/6)、[#7](https://github.com/TinjiYDon/zhixue-multimodal/issues/7)。
 
