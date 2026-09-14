@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 from app.schemas.timeline import TimelineCue, TimelineResponse, TimelineSlide
 
 _timeline_by_course: dict[str, TimelineResponse] = {}
@@ -77,8 +79,6 @@ async def ingest_job_result_to_timeline(course_id: str, result: object | None, *
         segments = result.get("segments")
         slides = result.get("slides")
     elif isinstance(result, str) and result.strip().startswith("{"):
-        import json
-
         try:
             parsed = json.loads(result)
             segments = parsed.get("segments")
