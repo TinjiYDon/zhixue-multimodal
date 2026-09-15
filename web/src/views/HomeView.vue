@@ -11,15 +11,13 @@ onMounted(async () => {
   try {
     health.value = await fetchHealth();
   } catch (e) {
-    console.warn("health error:", e);
+    // health check failed
   }
 
   try {
   loading.value = true;
   courses.value = await fetchCourses();
 } catch (e) {
-  console.warn("courses api error:", e);
-
   courses.value = [
     {
       id: "001",
