@@ -9,11 +9,13 @@ def test_fixture_timeline_ingest(client):
     assert resp.status_code == 200
     body = resp.json()
     assert body["status"] == "ok"
+    assert body["data_source"] == "fixture"
     assert len(body["cues"]) >= 2
 
     got = client.get(f"/api/v1/courses/{cid}/timeline")
     assert got.status_code == 200
     assert got.json()["status"] == "ok"
+    assert got.json()["data_source"] == "fixture"
     assert got.json()["cues"][0]["text"]
 
     ask = client.post(f"/api/v1/courses/{cid}/ask", json={"question": "核心概念"})

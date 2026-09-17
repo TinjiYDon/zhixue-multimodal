@@ -6,6 +6,7 @@ import {
   fetchTimeline,
   loadTimelineFromFixture,
   type TimelineCue,
+  type TimelineResponse,
   type TimelineSlide,
 } from "@/api/client";
 
@@ -19,6 +20,8 @@ const asking = ref(false);
 const loading = ref(false);
 const error = ref("");
 const apiStatus = ref("");
+const dataSource = ref<string>("");
+const banner = ref("");
 
 const cues = ref<TimelineCue[]>([]);
 const slides = ref<TimelineSlide[]>([]);
@@ -39,6 +42,39 @@ const currentSubtitle = computed(() => {
 
 const currentSlide = ref(1);
 
+const bannerClass = computed(() => {
+  if (dataSource.value === "failed") return "banner banner-fail";
+  if (dataSource.value === "placeholder") return "banner banner-warn";
+  if (dataSource.value === "fixture") return "banner banner-info";
+  if (dataSource.value === "asr") return "banner banner-ok";
+  return "banner";
+});
+
+function applyTimeline(tl: TimelineResponse) {
+  apiStatus.value = tl.status;
+  dataSource.value = tl.data_source || "";
+  cues.value = tl.cues || [];
+  slides.value = tl.slides || [];
+  if (slides.value.length) {
+    currentSlide.value = slides.value[0].page;
+  }
+  if (tl.data_source === "failed" || tl.status === "failed") {
+    banner.value =
+      tl.message ||
+      "转写失败：当前无可用字幕。请检查录音是否有语音后重新上传。";
+  } else if (tl.data_source === "placeholder" || tl.status === "placeholder") {
+    banner.value =
+      tl.message ||
+      "演示占位字幕：尚未有真实转写结果。可点「加载 fixture」或等待任务完成。";
+  } else if (tl.data_source === "fixture") {
+    banner.value = "当前为 fixture 演示数据，非本场课真实转写。";
+  } else if (tl.data_source === "asr") {
+    banner.value = "已加载真实 ASR 时间轴。";
+  } else {
+    banner.value = tl.message || "";
+  }
+}
+
 function play(time: number) {
   currentTime.value = time;
   const slide = [...slides.value].reverse().find((s) => s.t_start <= time);
@@ -56,20 +92,18 @@ async function loadTimeline(useFixtureFallback = true) {
   error.value = "";
   try {
     let tl = await fetchTimeline(courseId.value);
+    const failed = tl.status === "failed" || tl.data_source === "failed";
+    // V-P0-3b: failed 态不自动灌入 fixture，避免「假成功」误导
     if (
       useFixtureFallback &&
+      !failed &&
       (tl.status === "placeholder" || !tl.cues?.length)
     ) {
       tl = await loadTimelineFromFixture(courseId.value);
     }
-    apiStatus.value = tl.status;
-    cues.value = tl.cues || [];
-    slides.value = tl.slides || [];
-    if (slides.value.length) {
-      currentSlide.value = slides.value[0].page;
-    }
-    if (!cues.value.length) {
-      error.value = tl.message || "timeline 仍为空（占位）";
+    applyTimeline(tl);
+    if (!cues.value.length && !failed) {
+      error.value = tl.message || "timeline 仍为空";
     }
   } catch (e) {
     error.value = e instanceof Error ? e.message : String(e);
@@ -106,10 +140,15 @@ onMounted(() => {
     <p class="meta">
       course_id=<code>{{ courseId }}</code>
       · timeline=<code>{{ apiStatus || "…" }}</code>
-      <button class="linkish" :disabled="loading" @click="loadTimeline(true)">
+      · source=<code>{{ dataSource || "…" }}</code>
+      <button class="linkish" :disabled="loading" @click="loadTimeline(false)">
         {{ loading ? "加载中…" : "刷新 timeline" }}
       </button>
+      <button class="linkish" :disabled="loading" @click="loadTimeline(true)">
+        加载 fixture
+      </button>
     </p>
+    <p v-if="banner" :class="bannerClass">{{ banner }}</p>
     <p v-if="error" class="err">{{ error }}</p>
 
     <div class="layout">
@@ -131,7 +170,7 @@ onMounted(() => {
           {{ formatTime(item.time) }} - {{ item.text }}
         </div>
         <p v-if="!timelineItems.length" class="hint">
-          无 cues。可先 POST fixture，或等多媒体 job 写入。
+          无 cues。失败态不会自动灌入 fixture；可手动「加载 fixture」或等待 job。
         </p>
       </div>
 
@@ -177,6 +216,31 @@ onMounted(() => {
   background: transparent;
   color: #2563eb;
   cursor: pointer;
+}
+.banner {
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.banner-fail {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+.banner-warn {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+.banner-info {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+.banner-ok {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
 }
 .err {
   color: #b91c1c;
