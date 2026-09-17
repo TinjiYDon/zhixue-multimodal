@@ -39,6 +39,7 @@ async def get_course_timeline(course_id: str):
             TimelineSlide(page=2, t_start=30, title="要点（占位）"),
         ],
         message="无 job 钩子数据时返回占位；可用 POST .../timeline/from-fixture 演示 Wave3",
+        data_source="placeholder",
     )
 
 

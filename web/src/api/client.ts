@@ -46,6 +46,7 @@ export interface TimelineResponse {
   cues: TimelineCue[];
   slides: TimelineSlide[];
   message?: string | null;
+  data_source?: "asr" | "fixture" | "placeholder" | "failed" | null;
 }
 
 export interface AskResponse {

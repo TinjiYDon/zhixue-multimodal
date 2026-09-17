@@ -1,4 +1,8 @@
+from typing import Literal
+
 from pydantic import BaseModel, Field
+
+TimelineDataSource = Literal["asr", "fixture", "placeholder", "failed"]
 
 
 class TimelineCue(BaseModel):
@@ -22,9 +26,13 @@ class TimelineResponse(BaseModel):
     course_id: str
     status: str = Field(
         ...,
-        description="ok | placeholder — placeholder until jobs/multimedia write real cues",
+        description="ok | placeholder | failed — failed means job 未产出可用字幕",
     )
     duration_sec: float = 0
     cues: list[TimelineCue] = Field(default_factory=list)
     slides: list[TimelineSlide] = Field(default_factory=list)
     message: str | None = None
+    data_source: TimelineDataSource | None = Field(
+        default=None,
+        description="asr=真实转写 · fixture=演示夹具 · placeholder=无 job · failed=任务失败空轴",
+    )

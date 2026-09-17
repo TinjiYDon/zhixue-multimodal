@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from app.schemas.timeline import TimelineCue, TimelineResponse, TimelineSlide
+from app.schemas.timeline import TimelineCue, TimelineDataSource, TimelineResponse, TimelineSlide
 
 _timeline_by_course: dict[str, TimelineResponse] = {}
 
@@ -19,13 +19,15 @@ def get_timeline(course_id: str) -> TimelineResponse | None:
     return _timeline_by_course.get(course_id)
 
 
-def timeline_from_fixture_segments(
+def timeline_from_segments(
     course_id: str,
     segments: list[dict],
     *,
     slides: list[dict] | None = None,
+    data_source: TimelineDataSource = "fixture",
+    message: str | None = None,
 ) -> TimelineResponse:
-    """Build TimelineResponse from WhisperX-like segment dicts (Wave3 fixture path)."""
+    """Build TimelineResponse from WhisperX-like segment dicts."""
     cues = [
         TimelineCue(
             t_start=float(s.get("start", s.get("t_start", 0))),
@@ -44,14 +46,49 @@ def timeline_from_fixture_segments(
         for i, sl in enumerate(slides or [])
     ]
     if not slide_models and cues:
-        slide_models = [TimelineSlide(page=1, t_start=0, title="自动页（fixture）")]
+        title = "自动页（fixture）" if data_source == "fixture" else "自动页"
+        slide_models = [TimelineSlide(page=1, t_start=0, title=title)]
+    if message is None:
+        if data_source == "asr":
+            message = "timeline from ASR job result"
+        elif data_source == "fixture":
+            message = "timeline from fixture (demo Wave3)"
+        else:
+            message = f"timeline data_source={data_source}"
     return TimelineResponse(
         course_id=course_id,
         status="ok",
         duration_sec=duration,
         cues=cues,
         slides=slide_models,
-        message="timeline from fixture/job hook (Wave3)",
+        message=message,
+        data_source=data_source,
+    )
+
+
+def timeline_from_fixture_segments(
+    course_id: str,
+    segments: list[dict],
+    *,
+    slides: list[dict] | None = None,
+) -> TimelineResponse:
+    """Backward-compatible alias — always marks data_source=fixture."""
+    return timeline_from_segments(
+        course_id, segments, slides=slides, data_source="fixture"
+    )
+
+
+def empty_failed_timeline(course_id: str, *, error_msg: str | None = None) -> TimelineResponse:
+    """V-P0-3: failed job must not look like it has real content."""
+    detail = error_msg.strip() if error_msg else "转写未完成"
+    return TimelineResponse(
+        course_id=course_id,
+        status="failed",
+        duration_sec=0,
+        cues=[],
+        slides=[],
+        message=f"job failed — {detail}",
+        data_source="failed",
     )
 
 
@@ -69,13 +106,32 @@ FIXTURE_TRANSCRIPT = {
 }
 
 
-async def ingest_job_result_to_timeline(course_id: str, result: object | None, *, use_fixture_on_fail: bool = True) -> TimelineResponse:
-    """Wave3 hook: map job result → timeline store; fall back to fixture for demo."""
+async def ingest_job_result_to_timeline(
+    course_id: str,
+    result: object | None,
+    *,
+    use_fixture_on_fail: bool = True,
+    job_failed: bool = False,
+    error_msg: str | None = None,
+) -> TimelineResponse:
+    """Wave3 hook: map job result → timeline store.
+
+    - ``job_failed=True`` → empty cues + ``data_source=failed``（不灌 fixture）.
+    - Real ASR dict with ``backend=whisperx`` → ``data_source=asr``.
+    - Explicit fixture / empty + use_fixture_on_fail → ``data_source=fixture``.
+    """
+    if job_failed:
+        tl = empty_failed_timeline(course_id, error_msg=error_msg)
+        set_timeline(course_id, tl)
+        return tl
+
     segments = None
     slides = None
+    backend: str | None = None
     if isinstance(result, dict):
         segments = result.get("segments")
         slides = result.get("slides")
+        backend = result.get("backend")
     elif isinstance(result, str) and result.strip().startswith("{"):
         import json
 
@@ -83,12 +139,16 @@ async def ingest_job_result_to_timeline(course_id: str, result: object | None, *
             parsed = json.loads(result)
             segments = parsed.get("segments")
             slides = parsed.get("slides")
+            backend = parsed.get("backend")
         except json.JSONDecodeError:
             segments = None
 
+    used_fixture = False
     if not segments and use_fixture_on_fail:
         segments = FIXTURE_TRANSCRIPT["segments"]
         slides = FIXTURE_TRANSCRIPT["slides"]
+        used_fixture = True
+        backend = "fixture"
 
     if not segments:
         tl = TimelineResponse(
@@ -98,13 +158,21 @@ async def ingest_job_result_to_timeline(course_id: str, result: object | None, *
             cues=[],
             slides=[],
             message="no transcript segments yet",
+            data_source="placeholder",
         )
         set_timeline(course_id, tl)
         return tl
 
-    tl = timeline_from_fixture_segments(course_id, segments, slides=slides)
+    if used_fixture or backend == "fixture":
+        data_source: TimelineDataSource = "fixture"
+    elif backend and backend != "fixture":
+        data_source = "asr"
+    else:
+        # Structured segments without backend tag — treat as ASR when not from fixture path
+        data_source = "asr" if not use_fixture_on_fail else "fixture"
+
+    tl = timeline_from_segments(course_id, segments, slides=slides, data_source=data_source)
     set_timeline(course_id, tl)
-    # Seed RAG context from cue texts
     from app.services import agent
 
     agent.set_course_context(course_id, [c.text for c in tl.cues if c.text])

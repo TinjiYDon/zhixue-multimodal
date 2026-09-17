@@ -8,6 +8,10 @@ class TranscriptSegment(BaseModel):
     start: float = Field(..., ge=0, description="seconds")
     end: float = Field(..., ge=0, description="seconds")
     speaker: str | None = None
+    quality_issues: list[str] = Field(
+        default_factory=list,
+        description="e.g. high_compression_ratio, high_no_speech_prob",
+    )
 
 
 class TranscriptResult(BaseModel):
@@ -15,6 +19,16 @@ class TranscriptResult(BaseModel):
     media_key: str
     language: str | None = None
     segments: list[TranscriptSegment]
+    backend: str | None = Field(
+        default=None,
+        description="fixture | whisperx | … — 供 timeline data_source 区分",
+    )
+    asr_model: str | None = None
+    duration_sec: float | None = None
+    quality_flags: list[dict] = Field(
+        default_factory=list,
+        description="segment-level ASR quality warnings (V-P1-3)",
+    )
 
 
 class OcrBlock(BaseModel):
