@@ -163,6 +163,29 @@ export function getCourse(courseId: string): Promise<Course> {
   return request<Course>({ url: `/courses/${courseId}`, auth: false })
 }
 
+export interface TimelineCue {
+  t_start: number
+  t_end: number
+  text: string
+}
+
+export interface TimelineResponse {
+  course_id: string
+  status: string
+  duration_sec: number
+  cues: TimelineCue[]
+  slides?: Array<{ page: number; t_start: number; title: string }>
+  message?: string | null
+  data_source?: 'asr' | 'fixture' | 'placeholder' | 'failed' | null
+}
+
+export function getTimeline(courseId: string): Promise<TimelineResponse> {
+  return request<TimelineResponse>({
+    url: `/courses/${courseId}/timeline`,
+    auth: false,
+  })
+}
+
 export async function askCourse(courseId: string, question: string): Promise<AskResponse> {
   await ensureLogin()
   return request<AskResponse>({

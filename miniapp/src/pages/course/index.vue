@@ -10,6 +10,11 @@
       <view class="course-title">{{ courseTitle }}</view>
     </view>
 
+    <!-- 时间轴 / 转写状态提示（V-P0-3b） -->
+    <view v-if="timelineBanner" :class="['tl-banner', timelineBannerTone]">
+      <text>{{ timelineBanner }}</text>
+    </view>
+
     <!-- 问答区域 -->
     <view class="qa-section">
       <view class="qa-section-title">课程问答</view>
@@ -86,9 +91,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, nextTick } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
-import { getCourse, askCourse, type AskResponse } from '@/api/index'
+import { getCourse, getTimeline, askCourse, type AskResponse } from '@/api/index'
 
 interface ChatMessage {
   role: 'user' | 'ai'
@@ -102,14 +107,16 @@ const questionInput = ref('')
 const asking = ref(false)
 const messages = ref<ChatMessage[]>([])
 const scrollTop = ref(0)
+const timelineBanner = ref('')
+const timelineBannerTone = ref('tl-info')
 
 onLoad((options: any) => {
   courseId.value = options.id || ''
   courseTitle.value = decodeURIComponent(options.title || '')
 
-  // 加载课程详情
   if (courseId.value) {
     fetchCourseDetail()
+    fetchTimelineStatus()
   }
 })
 
@@ -119,7 +126,34 @@ async function fetchCourseDetail() {
     courseTitle.value = course.title
     uni.setNavigationBarTitle({ title: course.title })
   } catch {
-    console.error('获取课程详情失败')
+    // ignore — title may already come from list
+  }
+}
+
+async function fetchTimelineStatus() {
+  try {
+    const tl = await getTimeline(courseId.value)
+    const src = tl.data_source || ''
+    if (src === 'failed' || tl.status === 'failed') {
+      timelineBanner.value =
+        tl.message || '转写失败：暂无可用字幕，请检查录音后重试。'
+      timelineBannerTone.value = 'tl-fail'
+    } else if (src === 'placeholder' || tl.status === 'placeholder') {
+      timelineBanner.value =
+        tl.message || '字幕仍为占位，等待转写任务完成。'
+      timelineBannerTone.value = 'tl-warn'
+    } else if (src === 'fixture') {
+      timelineBanner.value = '当前为演示 fixture 数据，非本场真实转写。'
+      timelineBannerTone.value = 'tl-info'
+    } else if (src === 'asr') {
+      timelineBanner.value = `已加载真实转写（${tl.cues?.length || 0} 条字幕）。`
+      timelineBannerTone.value = 'tl-ok'
+    } else {
+      timelineBanner.value = ''
+    }
+  } catch {
+    timelineBanner.value = '无法获取时间轴状态'
+    timelineBannerTone.value = 'tl-warn'
   }
 }
 
@@ -183,6 +217,28 @@ function scrollToBottom() {
     font-size: 18px;
     font-weight: 600;
   }
+}
+
+.tl-banner {
+  padding: 10px 16px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.tl-fail {
+  background: #fef2f2;
+  color: #991b1b;
+}
+.tl-warn {
+  background: #fffbeb;
+  color: #92400e;
+}
+.tl-info {
+  background: #eff6ff;
+  color: #1e40af;
+}
+.tl-ok {
+  background: #f0fdf4;
+  color: #166534;
 }
 
 .qa-section {
