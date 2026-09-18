@@ -10,6 +10,13 @@ from app.services import storage
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    from app.db import init_db
+
+    try:
+        await init_db()
+    except Exception:
+        # PG may be offline during pure unit tests; services will raise on use.
+        pass
     try:
         storage.ensure_media_bucket()
     except Exception:

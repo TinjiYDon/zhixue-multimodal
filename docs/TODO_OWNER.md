@@ -4,24 +4,21 @@
 
 | 任务 | 文件 | 状态 |
 |------|------|------|
-| 上传 API | `endpoints/upload.py` + `services/storage.py` | ✅ presign + complete + MinIO 校验 |
-| 转写 schema | `schemas/transcript.py` | ✅ 供 C 对齐 |
-| 问答 API | `endpoints/courses.py` `/ask` + `services/agent.py` | ✅ RAG 占位 + CJK |
-| 对齐服务 | `services/alignment.py` | ✅ 工具函数 + 占位 |
-| API 路由注册 | `router.py` | ✅ upload + courses/ask |
-| API 测试 | `backend/tests/` | ✅ upload + ask smoke |
-| RAG 正式版 | `agent.py` pgvector | ⏳ 等 C/D 转写入库 |
-| review D PR | jobs/courses | ⏳ 待 D 提交 |
+| 上传 API | `endpoints/upload.py` + `services/storage.py` | ✅ Issue #2 closed |
+| 转写 schema | `schemas/transcript.py` | ✅ |
+| 问答 API | `courses/{id}/ask` + `agent.py` | ✅ |
+| timeline API | `GET /courses/{id}/timeline` | ✅ 占位 2026-07-22 |
+| 对齐服务 | `alignment.py` | ✅ 占位 |
+| API 测试 | `backend/tests/` | ✅ upload/ask/timeline/jobs |
+| 合并 PR #9 | web UI | ✅ |
+| review PR #1 | multimedia | ⏳ request changes |
+| 合入 D jobs | `course-job-zyc` → main | ✅ 2026-07-22（内存骨架） |
+| upload→job | `#P0-2a` | ✅ |
+| 全链路 demo 文档 | `docs/DEMO_E2E.md` | ✅ `#P0-5c` |
+| RAG 正式版 | pgvector | ⏳ 等 C 转写 + D PG |
+| Bugbot | `docs/BUGBOT.md` | ✅ 已开 2026-07-22 |
 
-## 队友 D（业务 API，不再做 Docker 运维）
+## 催促（已发 2026-07-22）
 
-- `course_service.py` PostgreSQL 持久化  
-- `endpoints/jobs.py` + `job_service.py`  
-- `workers/tasks.py` 异步调度（调用 C 转写）  
-
-## 联调顺序
-
-1. Docker `docker compose up -d`  
-2. 负责人：上传 → 触发 worker → 转写结果可查  
-3. 负责人：alignment + RAG  
-4. 队友：前端/小程序对接 API
+- D #5 · C #4/PR1 · B #8 · A #7
+- 邮件草稿：`scripts/email-drafts.txt`（已有公开邮箱两封）

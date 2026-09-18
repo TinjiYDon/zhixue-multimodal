@@ -5,9 +5,11 @@
 | 文档 | 用途 |
 |------|------|
 | 本文 | 谁做什么、不做什么、第一步 |
+| [TEAM_DIRECTION.md](TEAM_DIRECTION.md) | **本周方向 / 合规 / Review 通知** |
 | [COLLABORATION.md](COLLABORATION.md) | 联调顺序、契约、周会、排错 |
 | [BACKLOG.md](BACKLOG.md) | 可勾选任务（#P0-x） |
 | [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 各角色交付清单与答辩标准 |
+| [WECHAT_COMPLIANCE.md](WECHAT_COMPLIANCE.md) | 微信上架合规 Gate |
 
 ---
 

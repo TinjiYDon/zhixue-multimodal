@@ -1,0 +1,6 @@
+# Optional heavy deps for real ASR/OCR (not required for CI).
+# pip install -r requirements-multimedia.txt
+faster-whisper>=1.0.0
+torch
+whisperx
+rapidocr-onnxruntime

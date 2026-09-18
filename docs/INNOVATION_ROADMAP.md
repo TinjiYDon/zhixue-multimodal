@@ -1,40 +1,30 @@
 # 创新路线 — 智学多模态 Agent
 
-> 教育域独立项目；**MinIO + CDN 边缘缓存 + ASR/RAG** 为主创新链，与 ICU 项目零代码耦合。
+> 教育域独立项目；**实时课堂管线**（上传→ASR/OCR→时间轴→RAG）为主创新链，与 ICU 项目**零代码耦合**。
 
 ## 总叙事
 
-**课程多模态理解**：上传音视频 → 对象存储 → CDN 加速 → WhisperX ASR → 时间轴对齐 → pgvector RAG → Agent 问答。
+**课程多模态实时理解**：媒体流/任务流 → MinIO → WhisperX/OCR（契约 `schemas/transcript.py`）→ timeline → RAG 问答。
+
+「实时」指课堂音视频与字幕/任务进度，**不接入 ICU 风险或床位模型**。投刊时可与 ICU Agent 并列展示同构工程方法。
 
 ## 分步里程碑
 
-| 阶段 | 目标 | 交付物 | 依赖 |
-|------|------|--------|------|
-| **P0** ✓ | 工程骨架 | FastAPI + Vue + Docker(Redis/MinIO/PG) | — |
-| **P1** | 媒体管线 | 上传 → MinIO 预签名 URL → 异步转写任务 | Redis worker |
-| **P2** | CDN 分发 | 静态/媒体 URL 走 CDN 缓存策略（Cache-Control、回源 MinIO） | P1 |
-| **P3** | RAG 问答 | pgvector 索引 + `answer_question()` 实现 | P1 |
-| **P4** | Agent 工具层（可选） | MCP Tool `search_course_knowledge(query)` | P3 |
+| 阶段 | 目标 | 交付物 |
+|------|------|--------|
+| **P0** ✓ | 工程骨架 | FastAPI + Vue + Docker |
+| **P0-3** ✓ | 多媒体契约 | PR #12 · fixture 默认可测 |
+| **MILE-3** ✓ | 小程序骨架 | PR #11 |
+| **MILE-1** | Course/Job PG | D 一锤子（Issue #5） |
+| **P3** | 正式 RAG | pgvector + LLM |
 
-## 后期扩展空间
+## 评测
 
-- **CDN**：热门课程片段边缘缓存，降低 MinIO 回源（与 2026 边缘 AI 存储趋势一致）
-- **与 ICU 叙事互补**：同为「Agent + 可解释 + 标准工具接口」，答辩时可并列展示，无需代码集成
-- **小程序端**：UniApp 消费 CDN URL + `/api` 后端
+schema/`course_id` 隔离；pytest；fixture ≠ 宣称真 Whisper 已上线。
 
-## 当前 Next
-
-1. 实现 `transcription.py`（WhisperX 占位 → 真实 ASR）
-2. MinIO bucket 初始化 + 上传 API 联调
-3. Redis/Celery 或 BackgroundTasks 异步任务
-
-## Docker
+## Docker（省盘）
 
 ```powershell
 docker compose up -d
-# PG 5435 · Redis 6379 · MinIO 9000/9001
+# PG 5435 · Redis 6379 · MinIO 9000；不用则 compose stop
 ```
-
-## 关联仓库
-
-- ICU 决策/调度：临床域，无依赖

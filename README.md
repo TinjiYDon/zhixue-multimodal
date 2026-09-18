@@ -8,6 +8,21 @@
 
 **从 [`docs/TEAM_ASSIGNMENT.md`](docs/TEAM_ASSIGNMENT.md) 开始 · 分工见 [`docs/OWNER_VS_TEAM.md`](docs/OWNER_VS_TEAM.md)**
 
+| 文档 | 说明 |
+|------|------|
+| [docs/TEAM_ASSIGNMENT.md](docs/TEAM_ASSIGNMENT.md) | 分工（先读） |
+| [docs/PROGRESS.md](docs/PROGRESS.md) | 里程碑完成度 |
+| [docs/CHANGELOG.md](docs/CHANGELOG.md) | 本仓变更 / Release |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | 下一版本 |
+| [docs/ROADMAP_EXEC.md](docs/ROADMAP_EXEC.md) | MILE 执行记录 |
+| [docs/BACKLOG.md](docs/BACKLOG.md) | P0 切片 |
+| [docs/ACCEPTANCE_ZHIXUE.md](docs/ACCEPTANCE_ZHIXUE.md) | 人工验收报告 |
+| [docs/REPORT_OUTLINE.md](docs/REPORT_OUTLINE.md) | 结项第 2–4 部分框架 |
+| [docs/README.md](docs/README.md) | 文档索引 |
+
+**Open**：Issues [#6](https://github.com/TinjiYDon/zhixue-multimodal/issues/6)、[#7](https://github.com/TinjiYDon/zhixue-multimodal/issues/7)；PR [#13](https://github.com/TinjiYDon/zhixue-multimodal/pull/13)。  
+**上传样例格式**：联调默认 `mp4`（`video/mp4`）；API 当前无 MIME 白名单。
+
 ## 快速启动
 
 ```powershell

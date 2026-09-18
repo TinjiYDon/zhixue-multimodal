@@ -20,30 +20,12 @@
 
 ---
 
-## P0-2 · 上传与课程
+## P0-6 · Web（A）
 
-- [x] **#P0-2** `endpoints/upload.py` MinIO 预签名 + complete + **对象校验**（**负责人** ✅）
-- [x] **#P0-2d** `backend/tests/test_upload.py` smoke（**负责人** ✅）
-- [ ] **#P0-2a** upload complete 后自动触发 job（等 D 的 `/jobs` 联调）
-- [ ] **#P0-2b** `course_service.py` PostgreSQL CRUD（**D**）
-- [x] **#P0-2c** `router.py` 注册 upload/ask（**负责人** ✅；jobs 等 D PR review）
-
----
-
-## P0-3 · 多媒体 · WhisperX（C · whq6830-arch）
-
-- [ ] **#P0-3** `ffmpeg_pipeline.py` 抽 16kHz 音频
-- [ ] **#P0-3b** `transcription.py` sample mp4 → JSON（时间戳，对齐 `schemas/transcript.py`）
-- [ ] **#P0-3c** `ocr.py` sample 图片 → 文本
-
-> PR #1 审查未通过，见 Issue #4 评论。
-
----
-
-## P0-4 · Job API + Worker（D · yucc280 + C）
-
-- [ ] **#P0-4** `endpoints/jobs.py` + `job_service.py` POST/GET
-- [ ] **#P0-4b** `workers/tasks.py` 调 C 的 `transcribe_media`，更新 Job 状态
+- [x] **#P0-6** 课程列表页（PR #9 已合并）
+- [x] **#P0-6b** 时间轴播放器 + 字幕（UI/mock；待接 timeline API）
+- [x] **#P0-6c** 侧边 PPT + 问答面板（UI/mock；ask 路径待改）
+- [ ] **#P0-6d** 对接真实 `timeline` + `POST /courses/{id}/ask`（A follow-up）
 
 ---
 
@@ -52,29 +34,55 @@
 - [x] **#P0-5** `alignment.py` 页级对齐工具函数 + 占位 API（**负责人** ✅ 骨架）
 - [x] **#P0-5b** `agent.py` + `POST /courses/{id}/ask` RAG 占位 + CJK（**负责人** ✅）
 - [x] **#P0-5d** `backend/tests/test_ask.py` smoke（**负责人** ✅）
+- [x] **#P0-5e** `GET /courses/{id}/timeline` 占位响应（**负责人** ✅ 2026-07-22）
 - [ ] **#P0-5b+** pgvector 正式 RAG + LLM（等 C/D 转写入库）
-- [ ] **#P0-5c** 全链路 demo 文档
+- [x] **#P0-5c** 全链路 demo 文档（**负责人** ✅ [`DEMO_E2E.md`](DEMO_E2E.md)）
+- [x] **#P0-5f** Wave3：fixture timeline 钩子（`timeline_store` + `/timeline/from-fixture`）✅
 
 ---
 
-## P0-6 · Web（A）
+## P0-2 · 上传与课程
 
-- [ ] **#P0-6** 课程列表页
-- [ ] **#P0-6b** 时间轴播放器 + 字幕
-- [ ] **#P0-6c** 侧边 PPT + 问答面板
+- [x] **#P0-2** `endpoints/upload.py` MinIO 预签名 + complete + **对象校验**（**负责人** ✅ · Issue #2 closed）
+- [x] **#P0-2d** `backend/tests/test_upload.py` smoke（**负责人** ✅）
+- [x] **#P0-2a** upload complete 后自动创建 job + 后台跑 Worker（**负责人+D** ✅ 2026-07-22）
+- [x] **#P0-2b** `course_service.py` **PostgreSQL** CRUD（Owner 代合 2026-08-02 · Issue #5）
+- [x] **#P0-2c** `router.py` 注册 upload/ask/timeline/jobs（✅）
+
+---
+
+## P0-3 · 多媒体 · WhisperX（Owner 代合 · C 可选增强）
+
+- [x] **#P0-3** `ffmpeg_pipeline.py` 抽 16kHz 音频（PR **#12** ✅）
+- [x] **#P0-3b** `transcription.py` → `TranscriptResult`（fixture 默认可测；WhisperX 可选）
+- [x] **#P0-3c** `ocr.py` → `OcrResult` / `OcrPageResult`（同上）
+
+> PR #1 已关闭；由 Owner PR #12 一次落地 request-changes。真 WhisperX/GPU 样例由 C 在本机验证后贴 Issue，**勿再开碎 PR**。
+
+---
+
+## P0-4 · Job API + Worker（D · yucc280 + C）
+
+- [x] **#P0-4** `endpoints/jobs.py` + `job_service.py` POST/GET（✅）
+- [x] **#P0-4b** `workers/tasks.py` 调 `transcribe_media`（fixture 可 `done`）
+- [x] **#P0-4c** Job/Course **落 PG**（Owner ✅；Redis/Celery 队列仍可选后续）
 
 ---
 
 ## P0-7 · 小程序（B）
 
-- [ ] **#P0-7** UniApp 初始化 + 域名白名单
-- [ ] **#P0-7b** 课程列表 + 简单问答页
+- [x] **#P0-7** UniApp 初始化 + 域名白名单（PR **#11** 已合 2026-07-26 · tip `3e5f03c`）
+- [x] **#P0-7b** 课程列表 + 简单问答页（同上；API 仍可指向 mock/本地）
+- [x] **#P0-7c** 隐私/协议占位页 + 列表入口（合规 Z0 铺底）
+- [ ] **#P0-7-ship** 微信上架：关闭 [WECHAT_COMPLIANCE.md](WECHAT_COMPLIANCE.md) Blocker（鉴权/HTTPS/注销）+ [ACCEPTANCE_MINIAPP.md](ACCEPTANCE_MINIAPP.md)
 
 ---
 
 ## 联调里程碑
 
-- [ ] **#MILE-1** D+C+负责人：Course PG + jobs + upload → 转写入库
-- [ ] **#MILE-2** +A：Web 播放时间轴
-- [ ] **#MILE-3** +B：小程序列表
+> 与 [`ROADMAP_EXEC.md`](ROADMAP_EXEC.md) 对齐（2026-08-14）
+
+- [x] **#MILE-1** D+C+负责人：Course PG + jobs + upload → 转写入库（Owner 代合）
+- [x] **#MILE-2** +A：Web 接真 timeline/ask 骨架（main；Issue #7 验收标准待关）
+- [x] **#MILE-3** +B：小程序列表骨架（PR #11 ✅；接真 API 随 MILE-1/2）
 - [ ] **#MILE-4** 答辩彩排：端到端 5 分钟 demo
