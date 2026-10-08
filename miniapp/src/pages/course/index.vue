@@ -119,7 +119,7 @@ async function fetchCourseDetail() {
     courseTitle.value = course.title
     uni.setNavigationBarTitle({ title: course.title })
   } catch {
-    console.error('获取课程详情失败')
+    // course detail fetch failed
   }
 }
 
