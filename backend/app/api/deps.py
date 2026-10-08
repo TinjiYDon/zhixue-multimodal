@@ -36,8 +36,4 @@ async def require_user(
     raise HTTPException(status_code=401, detail="未登录或令牌无效，请先调用 /auth/login")
 
 
-async def get_request_id(x_request_id: Annotated[str | None, Header()] = None) -> str | None:
-    return x_request_id
-
-
 CurrentUser = Annotated[SessionUser, Depends(require_user)]
