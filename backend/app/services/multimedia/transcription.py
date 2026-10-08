@@ -168,28 +168,86 @@ def _resolve_media_path(media_key: str | None) -> Path | None:
     return None
 
 
-async def transcribe_media(job_id: str, media_key: str | None = None) -> dict:
-    """Return TranscriptResult dict. Uses fixture unless WhisperX is available."""
-    key = media_key or f"fixture://{job_id}"
-    backend = os.environ.get("ZHIXUE_ASR_BACKEND", "auto").lower()
+async def _transcribe_with_faster_whisper(
+    job_id: str,
+    key: str,
+    media_path: Path,
+) -> dict:
+    """CPU path used in VIDEO_TEST_REPORT (faster-whisper + CTranslate2 int8)."""
+    from faster_whisper import WhisperModel
 
-    if backend == "fixture":
-        return _fixture_transcript(job_id, key)
+    threads = resolve_asr_cpu_threads()
+    if threads is not None:
+        _apply_thread_env(threads)
+        logger.info("ASR cpu_threads fixed to %s (reproducible=%s)", threads, settings.asr_reproducible)
 
-    try:
-        import whisperx  # type: ignore
-        import torch
-    except ImportError:
-        logger.warning("whisperx not installed; returning fixture transcript")
-        return _fixture_transcript(job_id, key)
+    with tempfile.TemporaryDirectory(prefix="zhixue_asr_") as tmp:
+        wav_path = str(Path(tmp) / "audio.wav")
+        await asyncio.to_thread(extract_audio, str(media_path), wav_path, 16000)
+        duration = wav_duration_sec(wav_path)
+        model_name = choose_asr_model(duration)
+        logger.info("faster-whisper model=%s duration=%.1fs", model_name, duration)
 
-    if backend == "auto" and os.environ.get("CI") == "true":
-        return _fixture_transcript(job_id, key)
+        cpu_threads = threads if threads is not None else 4
+        model = await asyncio.to_thread(
+            WhisperModel,
+            model_name,
+            device="cpu",
+            compute_type="int8",
+            cpu_threads=cpu_threads,
+        )
+        prompt = (settings.asr_initial_prompt or "").strip() or None
+        segments_iter, info = await asyncio.to_thread(
+            lambda: model.transcribe(
+                wav_path,
+                language="zh",
+                beam_size=1,
+                vad_filter=False,
+                initial_prompt=prompt,
+            )
+        )
+        raw_segments: list[dict[str, Any]] = []
+        for seg in segments_iter:
+            raw_segments.append(
+                {
+                    "text": seg.text,
+                    "start": seg.start,
+                    "end": seg.end,
+                    "compression_ratio": getattr(seg, "compression_ratio", None),
+                    "no_speech_prob": getattr(seg, "no_speech_prob", None),
+                }
+            )
+        quality_flags, issues_by_idx = collect_quality_flags(raw_segments)
+        segments = [
+            TranscriptSegment(
+                text=str(s["text"]).strip(),
+                start=float(s["start"] or 0.0),
+                end=float(s["end"] or 0.0),
+                speaker=None,
+                quality_issues=list(issues_by_idx.get(i, [])),
+            )
+            for i, s in enumerate(raw_segments)
+            if str(s.get("text", "")).strip()
+        ]
+        return TranscriptResult(
+            job_id=job_id,
+            media_key=key,
+            language=getattr(info, "language", None) or "zh",
+            backend="faster-whisper",
+            asr_model=model_name,
+            duration_sec=duration,
+            quality_flags=quality_flags,
+            segments=segments,
+        ).model_dump()
 
-    media_path = _resolve_media_path(media_key)
-    if media_path is None:
-        logger.warning("no media file; returning fixture transcript")
-        return _fixture_transcript(job_id, key)
+
+async def _transcribe_with_whisperx(
+    job_id: str,
+    key: str,
+    media_path: Path,
+) -> dict:
+    import torch
+    import whisperx  # type: ignore
 
     patch_faster_whisper_compatibility()
 
@@ -200,7 +258,6 @@ async def transcribe_media(job_id: str, media_key: str | None = None) -> dict:
 
     with tempfile.TemporaryDirectory(prefix="zhixue_asr_") as tmp:
         wav_path = str(Path(tmp) / "audio.wav")
-        # Always normalize via ffmpeg when preprocess on (even if source is wav)
         await asyncio.to_thread(extract_audio, str(media_path), wav_path, 16000)
 
         duration = wav_duration_sec(wav_path)
@@ -266,3 +323,43 @@ async def transcribe_media(job_id: str, media_key: str | None = None) -> dict:
             quality_flags=quality_flags,
             segments=segments,
         ).model_dump()
+
+
+async def transcribe_media(job_id: str, media_key: str | None = None) -> dict:
+    """Return TranscriptResult dict. WhisperX → faster-whisper → fixture."""
+    key = media_key or f"fixture://{job_id}"
+    backend = os.environ.get("ZHIXUE_ASR_BACKEND", "auto").lower()
+
+    if backend == "fixture":
+        return _fixture_transcript(job_id, key)
+
+    if backend == "auto" and os.environ.get("CI") == "true":
+        return _fixture_transcript(job_id, key)
+
+    media_path = _resolve_media_path(media_key)
+    if media_path is None:
+        logger.warning("no media file; returning fixture transcript")
+        return _fixture_transcript(job_id, key)
+
+    use_whisperx = backend in ("auto", "whisperx")
+    use_fw = backend in ("auto", "faster-whisper", "faster_whisper")
+
+    if use_whisperx:
+        try:
+            import whisperx  # noqa: F401
+            import torch  # noqa: F401
+        except ImportError:
+            use_whisperx = False
+        else:
+            return await _transcribe_with_whisperx(job_id, key, media_path)
+
+    if use_fw:
+        try:
+            import faster_whisper  # noqa: F401
+        except ImportError:
+            logger.warning("faster-whisper not installed; returning fixture transcript")
+            return _fixture_transcript(job_id, key)
+        return await _transcribe_with_faster_whisper(job_id, key, media_path)
+
+    logger.warning("no ASR backend available; returning fixture transcript")
+    return _fixture_transcript(job_id, key)
