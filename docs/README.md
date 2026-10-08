@@ -4,6 +4,7 @@
 |------|------|------|
 | **[TEAM_ASSIGNMENT.md](TEAM_ASSIGNMENT.md)** | **全员 · 先读** | 分工总表、第一步、边界、FAQ |
 | **[TEAM_DIRECTION.md](TEAM_DIRECTION.md)** | **全员 · 本周** | 方向调整、合规进度、Draft 说明 |
+| **[TEACHER_INNOVATION.md](TEACHER_INNOVATION.md)** | **结项 · 答辩** | **给老师的创新口径**：能讲什么 / 不能讲什么 |
 | [COLLABORATION.md](COLLABORATION.md) | 全员 | 联调、契约、周会、排错 |
 | [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 全员 | 各角色交付清单 |
 | [BACKLOG.md](BACKLOG.md) | 全员 | 可勾选任务 #P0-x |
