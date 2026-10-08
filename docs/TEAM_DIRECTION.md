@@ -10,7 +10,7 @@
 | 定位 | 课堂多模态 Agent；**不接入 ICU** |
 | 本阶段主线 | 微信小程序 **上架合规 Z0** → 健全性 Z1 → 再提审 |
 | 飞轮 | 学习反馈默认 **关闭**（见 [`DATA_FLYWHEEL.md`](DATA_FLYWHEEL.md)） |
-| 本周请做 | Review `main`；B 角色联调鉴权/注销；运维推进 HTTPS 合法域名（B2） |
+| 本周请做 | Review `main`；B 联调鉴权；C 按 [VIDEO_OPTIMIZATION.md](VIDEO_OPTIMIZATION.md) 推进实测验收；运维推进 HTTPS（B2） |
 
 ## 角色提示
 
@@ -19,7 +19,7 @@
 | B 小程序 | 设置页、token、隐私/协议页、探活 `/health`；勿删 health |
 | A Web | 与 Bearer 鉴权联调；勿假定匿名可写 |
 | D 后端 | `AUTH_*` 生产配置；保持 `/health` |
-| C 多媒体 | 与鉴权无冲突；上传受 MIME/大小限制 |
+| C 多媒体 | 上传 MIME/大小限制；**视频实测 P0/P1** 见 [VIDEO_OPTIMIZATION.md](VIDEO_OPTIMIZATION.md) |
 | 负责人 | B2 域名 / 类目资质 / 法务正文 |
 
 分工总表仍以 [`TEAM_ASSIGNMENT.md`](TEAM_ASSIGNMENT.md) 为准。

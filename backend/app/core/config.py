@@ -25,11 +25,35 @@ class Settings(BaseSettings):
     wechat_app_secret: str = ""
     session_ttl_seconds: int = 7 * 24 * 3600
 
-    # Upload limits (B6)
-    upload_max_bytes: int = 200 * 1024 * 1024  # 200 MiB
+    # Upload limits (B6) — 13min@720p≈189MiB 曾顶满 200MiB；默认放宽到 512MiB
+    upload_max_bytes: int = 512 * 1024 * 1024
     upload_allowed_content_types: str = (
         "video/mp4,audio/mpeg,audio/wav,audio/x-wav,image/png,image/jpeg,application/pdf"
     )
+
+    # MinIO / S3 timeouts（大文件下载与小请求分离，V-P0-4）
+    s3_connect_timeout_seconds: float = 5.0
+    s3_read_timeout_seconds: float = 120.0
+
+    # ASR reproducibility (V-P0-1) — 评测/回归建议 ASR_REPRODUCIBLE=true 或 ASR_CPU_THREADS=1
+    asr_reproducible: bool = False
+    asr_cpu_threads: int = 0  # 0=库默认；>0 固定线程数；reproducible 时强制为 1
+
+    # Job 失败时是否仍灌 fixture 时间轴（演示用）。生产/实测应 false（V-P0-3）
+    timeline_fixture_on_job_fail: bool = False
+
+    # V-P1 audio / ASR accuracy
+    asr_audio_preprocess: bool = True  # highpass + loudnorm
+    asr_highpass_hz: int = 80
+    asr_loudnorm: bool = True
+    asr_initial_prompt: str = (
+        "数据库 关系模型 Ted Codd 指针 耦合度 增删改查 浏览器 模块 面向对象"
+    )
+    asr_model_short: str = "small"
+    asr_model_long: str = "base"
+    asr_long_threshold_sec: float = 480.0  # ≥8min 用 long 档
+    asr_compression_ratio_warn: float = 2.35  # Whisper 默认重复阈附近
+    asr_no_speech_prob_warn: float = 0.9
 
 
 settings = Settings()

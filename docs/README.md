@@ -4,6 +4,7 @@
 |------|------|------|
 | **[TEAM_ASSIGNMENT.md](TEAM_ASSIGNMENT.md)** | **全员 · 先读** | 分工总表、第一步、边界、FAQ |
 | **[TEAM_DIRECTION.md](TEAM_DIRECTION.md)** | **全员 · 本周** | 方向调整、合规进度、Draft 说明 |
+| **[TEACHER_INNOVATION.md](TEACHER_INNOVATION.md)** | **结项 · 答辩** | **给老师的创新口径**：能讲什么 / 不能讲什么 |
 | [COLLABORATION.md](COLLABORATION.md) | 全员 | 联调、契约、周会、排错 |
 | [OWNER_VS_TEAM.md](OWNER_VS_TEAM.md) | 全员 | 各角色交付清单 |
 | [BACKLOG.md](BACKLOG.md) | 全员 | 可勾选任务 #P0-x |
@@ -14,6 +15,8 @@
 | [ROADMAP.md](ROADMAP.md) | 全员 / AI | 下一版本 |
 | [ROADMAP_EXEC.md](ROADMAP_EXEC.md) | 全员 | MILE 执行记录 |
 | [ACCEPTANCE_ZHIXUE.md](ACCEPTANCE_ZHIXUE.md) | 全员 | 人工验收报告 |
+| [VIDEO_TEST_REPORT_20260916.md](VIDEO_TEST_REPORT_20260916.md) | C / 负责人 | **4×720p 实测分析**（优化建议） |
+| [VIDEO_OPTIMIZATION.md](VIDEO_OPTIMIZATION.md) | C / 负责人 | 视频链路 P0–P2 优化清单与代码落点 |
 | [REPORT_OUTLINE.md](REPORT_OUTLINE.md) | 结项 | 第 2–4 部分填空框架 |
 | [算法公式与架构可视化补充.docx](算法公式与架构可视化补充.docx) | 结项 | 公式表 + 架构/链路/RAG 图 |
 | [report-figures/](report-figures/) | 结项 | PNG 图源（可直接贴 PPT） |

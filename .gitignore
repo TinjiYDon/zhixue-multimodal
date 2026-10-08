@@ -25,3 +25,11 @@ Thumbs.db
 # Uploads / local data (runtime)
 backend/storage/
 *.sqlite3
+
+# Runtime artifacts (ASR dumps, model outputs) — regenerate, don't commit
+backend/artifacts/
+artifacts/
+
+# Local drafts (report working copies) — final versions live in docs/
+docs/_draft/
+*.docx

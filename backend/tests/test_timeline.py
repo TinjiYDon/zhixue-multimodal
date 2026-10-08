@@ -4,5 +4,6 @@ def test_timeline_placeholder(client):
     body = resp.json()
     assert body["course_id"] == "demo"
     assert body["status"] == "placeholder"
+    assert body["data_source"] == "placeholder"
     assert len(body["cues"]) >= 1
     assert len(body["slides"]) >= 1

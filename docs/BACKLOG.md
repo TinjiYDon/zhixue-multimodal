@@ -78,6 +78,25 @@
 
 ---
 
+## 视频实测优化（C · 2026-09-16 报告）
+
+> 详情：[VIDEO_OPTIMIZATION.md](VIDEO_OPTIMIZATION.md) · 原文：[VIDEO_TEST_REPORT_20260916.md](VIDEO_TEST_REPORT_20260916.md)
+
+- [x] **#V-P0-1** 转写可复现（`ASR_REPRODUCIBLE` / `ASR_CPU_THREADS`；真机双跑待验）
+- [x] **#V-P0-2** timeline 暴露 `data_source`（真实 vs 占位）
+- [x] **#V-P0-3** 任务 `failed` 时返回空 cues（`TIMELINE_FIXTURE_ON_JOB_FAIL=false`）
+- [x] **#V-P0-4** 大对象读超时可配（`S3_READ_TIMEOUT_SECONDS`）
+- [x] **#V-P0-5** 默认 `UPLOAD_MAX_BYTES` 提至 512 MiB
+- [x] **#V-P0-3b** Web/小程序对 `data_source=failed|placeholder` 的 UI 提示（前端）
+- [ ] **#V-P0-1b** 同一 6min 素材 threads=1 连续双跑段数一致（本机实测）
+- [x] **#V-P1-1** FFmpeg `highpass` + `loudnorm`（`ASR_AUDIO_PREPROCESS`）
+- [x] **#V-P1-2** `ASR_INITIAL_PROMPT` 课件热词
+- [x] **#V-P1-3** `quality_flags` / segment `quality_issues`
+- [x] **#V-P1-4** 按时长选 `ASR_MODEL_SHORT` / `ASR_MODEL_LONG`
+- [ ] **#V-P1-A/B** 固定线程下短/长素材 A/B（本机实测，对照报告基线）
+
+---
+
 ## 联调里程碑
 
 > 与 [`ROADMAP_EXEC.md`](ROADMAP_EXEC.md) 对齐（2026-08-14）

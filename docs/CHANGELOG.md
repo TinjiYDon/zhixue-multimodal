@@ -18,10 +18,12 @@ auth: none
 ## [Unreleased]
 
 - **鉴权骨架（Z0）**：`/api/v1/auth/login|logout|me` · Bearer 保护 upload/ask/写接口；`DELETE /auth/me` 注销。
-- **上传限制（B6）**：content_type 白名单 + `size_bytes` / `UPLOAD_MAX_BYTES`。
+- **上传限制（B6）**：content_type 白名单 + `size_bytes` / `UPLOAD_MAX_BYTES`（默认 512 MiB）。
 - 小程序：统一超时/错误、token、设置页（登录/注销/飞轮开关）、`VITE_API_BASE`。
 - 微信上架合规文档更新 Blocker 状态；健全性见 `ACCEPTANCE_MINIAPP.md`。
-- Open PR [#13](https://github.com/TinjiYDon/zhixue-multimodal/pull/13)（`multimedia_new`）。
+- **视频实测归档（2026-09-16）**：[VIDEO_TEST_REPORT_20260916.md](VIDEO_TEST_REPORT_20260916.md) · 优化清单 [VIDEO_OPTIMIZATION.md](VIDEO_OPTIMIZATION.md)。
+- **V-P0**：`data_source`、失败空时间轴、ASR 可复现线程、S3 读超时；Web/小程序 banner。
+- **V-P1**：loudnorm/highpass、`initial_prompt`、质检标记、按时长选模型。
 - Open Issues [#6](https://github.com/TinjiYDon/zhixue-multimodal/issues/6)、[#7](https://github.com/TinjiYDon/zhixue-multimodal/issues/7)。
 
 ## 2026-07 / 08
